@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/base_padding_medium"
+    tools:context=".presentation.login.LoginFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/firstnameInputLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/firstname"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/lastnameInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/lastnameInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/lastnameInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/BaseText.PlaceholderText"
+            android:textColor="@color/text_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lastnameInputLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lastname"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/center_space"
+        app:layout_constraintEnd_toEndOf="@+id/center_space"
+        app:layout_constraintStart_toStartOf="@+id/center_space">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/BaseText.PlaceholderText"
+            android:textColor="@color/text_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Space
+        android:id="@+id/center_space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_padding_ultralarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/numberInputLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/number"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/center_space"
+        app:layout_constraintStart_toStartOf="@+id/center_space"
+        app:layout_constraintTop_toBottomOf="@+id/center_space">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="16"
+            android:inputType="phone"
+            android:textAppearance="@style/BaseText.PlaceholderText"
+            android:textColor="@color/text_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
+        style="@style/BaseButton.CommonButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/base_padding_small"
+        android:paddingVertical="@dimen/base_padding_medium"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/numberInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/numberInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/numberInputLayout" />
+
+    <TextView
+        android:id="@+id/text_before_conditions"
+        style="@style/BaseText.Caption1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/text_before_conditions"
+        app:layout_constraintBottom_toTopOf="@+id/text_conditions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/text_conditions"
+        style="@style/BaseText.LinkText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_padding_small"
+        android:gravity="center"
+        android:text="@string/conditions_of_the_loyalty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_before_conditions"
+        app:layout_constraintStart_toStartOf="@+id/text_before_conditions" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,32 @@
+<resources>
+    <!--  Base  -->
+    <string name="app_name">MarketApp</string>
+    <string name="main">Главная</string>
+    <string name="catalog">Каталог</string>
+    <string name="basket">Корзина</string>
+    <string name="discount">Акции</string>
+    <string name="account">Профиль</string>
+    <string name="favorite">Избранное</string>
+    <string name="dummy">Заглушка</string>
+    <!--  Login  -->
+    <string name="firstname">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="number">Номер телефона</string>
+    <string name="login">Войти</string>
+    <string name="enter">Вход</string>
+    <string name="text_before_conditions">Нажимая кнопку “Войти”, Вы принимаете</string>
+    <string name="conditions_of_the_loyalty"><u>условия программы лояльности</u></string>
+    <string name="price_with_discount">priceWithDiscount</string>
+    <string name="price">Цена</string>
+    <string name="brand">Бренд</string>
+    <string name="title">Заголовок</string>
+    <string name="reviews_count">0.0</string>
+    <string name="by_popularity">По популярности</string>
+    <string name="filter">Фильтры</string>
+    <string name="tag">Тэг</string>
+    <!--  Main  -->
+    <!--  Catalog  -->
+    <!--  Product  -->
+    <!--  Account  -->
+    <!--  Favorite  -->
+</resources>

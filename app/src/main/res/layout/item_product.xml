@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="10dp"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/itemImage"
+                android:layout_width="168dp"
+                android:layout_height="144dp"
+                android:scaleType="centerCrop"
+                app:iss_selected_dot="@drawable/ic_dot_small_active"
+                app:iss_unselected_dot="@drawable/ic_dot_small_inactive"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:padding="3dp"
+                app:layout_constraintEnd_toEndOf="@+id/itemImage"
+                app:layout_constraintTop_toTopOf="@+id/itemImage"
+                app:srcCompat="@drawable/ic_heart_empty" />
+
+            <com.ighorosipov.marketapp.presentation.custom.StrikeTextView
+                android:id="@+id/price"
+                style="@style/BaseText.ElementalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:text="@string/price_with_discount"
+                android:textColor="@color/text_grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemImage" />
+
+            <TextView
+                android:id="@+id/price_with_discount"
+                style="@style/BaseText.Title2"
+                android:textColor="@color/text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/price"
+                app:layout_constraintStart_toStartOf="@+id/price"
+                app:layout_constraintTop_toBottomOf="@+id/price" />
+
+            <TextView
+                android:id="@+id/discount"
+                style="@style/BaseText.ElementalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:background="@drawable/bg_button"
+                android:textColor="@color/text_white"
+                android:layout_marginStart="8dp"
+                android:padding="3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/price_with_discount"
+                app:layout_constraintStart_toEndOf="@+id/price_with_discount"
+                app:layout_constraintTop_toTopOf="@+id/price_with_discount" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                style="@style/BaseText.Title3"
+                android:textColor="@color/text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/brand"
+                app:layout_constraintStart_toStartOf="@+id/price_with_discount"
+                app:layout_constraintTop_toBottomOf="@+id/price_with_discount" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/BaseText.Caption1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/title"
+                android:textColor="@color/text_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/subtitle"
+                app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:srcCompat="@drawable/ic_star"/>
+
+            <TextView
+                android:id="@+id/reviews"
+                style="@style/BaseText.ElementalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews_count"
+                android:textColor="@color/text_orange"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/star"
+                app:layout_constraintStart_toEndOf="@+id/star"
+                app:layout_constraintTop_toTopOf="@+id/star" />
+
+            <TextView
+                android:id="@+id/reviews_count"
+                style="@style/BaseText.ElementalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/reviews_count"
+                android:textColor="@color/text_grey"
+                app:layout_constraintBottom_toBottomOf="@+id/reviews"
+                app:layout_constraintStart_toEndOf="@+id/reviews"
+                app:layout_constraintTop_toTopOf="@+id/reviews"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/star"
+                app:srcCompat="@drawable/ic_add" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

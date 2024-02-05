@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MarketApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/elem_pink</item>
+        <item name="colorPrimaryVariant">@color/error</item>
+        <item name="colorOnPrimary">@color/elem_orange</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/error</item>
+        <item name="colorSecondaryVariant">@color/elem_orange</item>
+        <item name="colorOnSecondary">@color/error</item>
+        <!-- Customize your theme here. -->
+        <!-- Action bar. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <!-- Status bar. -->
+        <item name="android:statusBarColor">@color/bg_white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

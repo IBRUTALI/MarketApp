@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text style. -->
+    <style name="BaseText">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:fontFamily">@font/sf_pro_display_medium</item>
+    </style>
+
+    <style name="BaseText.LargeTitle1">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BaseText.Title1">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseText.Title2">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseText.Title3">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BaseText.Title4">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseText.Text1">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BaseText.Caption1">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="BaseText.ButtonText1">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="BaseText.ButtonText2">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BaseText.ElementalText">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">9sp</item>
+    </style>
+
+    <style name="BaseText.PriceText">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="BaseText.PlaceholderText">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BaseText.LinkText">
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/text_grey</item>
+        <item name="android:textSize">10sp</item>
+
+    </style>
+
+    <!-- TextInputLayout options. -->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/base_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/base_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/base_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/base_corner_radius</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="endIconDrawable">@drawable/ic_close_big</item>
+        <item name="boxStrokeColor">@color/bg_light_grey</item>
+        <item name="boxBackgroundColor">@color/bg_light_grey</item>
+        <item name="boxStrokeErrorColor">@color/error</item>
+        <item name="errorTextAppearance">@style/BaseText.PlaceholderText</item>
+        <item name="errorTextColor">@color/error</item>
+        <item name="helperTextTextAppearance">@style/BaseText.PlaceholderText</item>
+        <item name="helperTextTextColor">@color/text_grey</item>
+        <item name="hintTextAppearance">@style/BaseText.PlaceholderText</item>
+        <item name="hintTextColor">@color/text_grey</item>
+        <item name="placeholderTextAppearance">@style/BaseText.PlaceholderText</item>
+    </style>
+
+    <!-- Buttons. -->
+    <style name="BaseButton" parent="Widget.Material3.Button">
+        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
+        <item name="cornerRadius">@dimen/base_corner_radius</item>
+    </style>
+
+    <style name="BaseButton.CommonButton">
+        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
+        <item name="backgroundTint">@drawable/selector_button</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="BaseButton.PanelButton">
+        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
+        <item name="backgroundTint">@color/bg_white</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
+    <!--  Toolbar  -->
+    <style name="CustomToolbarStyle" parent="">
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+    <style name="CustomToolbarStyle.Event" parent="CustomToolbarStyle">
+        <item name="android:titleTextAppearance">@style/TextAppearance.Widget.Event.Toolbar.Title</item>
+        <item name="android:tint">?attr/colorPrimaryVariant</item>
+        <item name="android:textColorPrimary">@color/text_black</item>
+    </style>
+
+    <style name="TextAppearance.Widget.Event.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="textAppearanceBody1">@style/BaseText.Title1</item>
+    </style>
+
+</resources>
