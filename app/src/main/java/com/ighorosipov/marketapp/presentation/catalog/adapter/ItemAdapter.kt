@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.ItemProductBinding
@@ -49,27 +50,38 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
         holder.itemView.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener?.onClick(position, items[position])
+                onClickListener?.onItemClick(position, items[position])
             }
         }
 
         holder.binding.heart.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener?.onClick(position, items[position])
+                onClickListener?.onHeartClick(position, items[position])
             }
+        }
+
+        holder.binding.itemImage.setItemClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                if (onClickListener != null) {
+                    onClickListener?.onItemClick(position, items[position])
+                }
+            }
+            override fun doubleClick(position: Int) {}
+        })
+
+        holder.binding.add.setOnClickListener {
+
         }
     }
 
-    fun setOnItemClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
-    }
-
-    fun setOnHeartClickListener(onClickListener: OnClickListener) {
+    fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
 
     interface OnClickListener {
-        fun onClick(position: Int, item: Item)
+        fun onItemClick(position: Int, item: Item)
+        fun onHeartClick(position: Int, item: Item)
+
     }
 
     fun setList(newList: List<Item>) {
@@ -80,7 +92,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     }
 
     fun checkFavorites(itemId: String, position: Int) {
-        notifyItemChanged(position)
+        notifyItemChanged(position, null)
     }
 
     fun setFavorites(newList: List<String>) {

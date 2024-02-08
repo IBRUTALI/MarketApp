@@ -22,7 +22,7 @@ class CatalogViewModel @AssistedInject constructor(
     private val _items = MutableLiveData<Result<Items>>()
     val items: LiveData<Result<Items>> = _items
 
-    private val _favorites = MutableLiveData<List<String>>()
+    private val _favorites = MutableLiveData<List<String>>(emptyList())
     val favorites: LiveData<List<String>> = _favorites
 
     init {
@@ -37,19 +37,21 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
-    fun toggleFavorite(id: String) {
+    fun toggleFavorite(id: String, function: () -> Unit) {
         viewModelScope.launch {
             val favorite = Favorite(
                 itemId = id
             )
             if (marketRepository.findFavoriteById(id) == null) {
+                _favorites.plusAssign(id)
                 marketRepository.insertUserFavorite(
                     favorite
                 )
-                _favorites.postValue(favorites.value?.plus(id) ?: emptyList())
+                function.invoke()
             } else {
-                marketRepository.deleteUserFavorite(id)
                 _favorites.postValue(favorites.value?.remove(id))
+                marketRepository.deleteUserFavorite(id)
+                function.invoke()
             }
 
         }
@@ -62,7 +64,7 @@ class CatalogViewModel @AssistedInject constructor(
     }
 
     fun sort() {
-        
+
     }
 
     @AssistedFactory
@@ -71,6 +73,11 @@ class CatalogViewModel @AssistedInject constructor(
         fun create(): CatalogViewModel
 
     }
+}
+
+operator fun <T> MutableLiveData<List<T>>.plusAssign(item: T) {
+    val value = this.value ?: emptyList()
+    this.value = value + listOf(item)
 }
 
 private fun List<String>.remove(string: String): List<String> {

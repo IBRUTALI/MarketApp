@@ -12,9 +12,8 @@
         style="@style/CustomToolbarStyle.Event"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        app:contentInsetStartWithNavigation="0dp"
-        app:layout_scrollFlags="scroll|enterAlways|snap">
+        app:navigationIcon="@drawable/ic_left_arrow"
+        app:contentInsetStartWithNavigation="0dp">
 
         <TextView
             android:id="@+id/toolbar_text_view"

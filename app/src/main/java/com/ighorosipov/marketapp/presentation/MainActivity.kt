@@ -10,8 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.ActivityMainBinding
@@ -60,6 +58,7 @@ class MainActivity: AppCompatActivity() {
         binding.toolbar.apply {
             setSupportActionBar(this)
         }
+        onCustomToolbarBackPress()
 
 
     }
@@ -104,6 +103,12 @@ class MainActivity: AppCompatActivity() {
             }
         )
         navController.graph = graph
+    }
+
+    private fun onCustomToolbarBackPress() {
+        binding.toolbar.setNavigationOnClickListener {
+                navController?.popBackStack()
+        }
     }
 
     private fun getMainNavigationGraphId(): Int = R.navigation.nav_graph

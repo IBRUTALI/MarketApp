@@ -47,18 +47,17 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             }
         })
 
-        itemAdapter.setOnItemClickListener(object : ItemAdapter.OnClickListener {
-            override fun onClick(position: Int, item: Item) {
+        itemAdapter.setOnClickListener(object : ItemAdapter.OnClickListener {
+
+            override fun onItemClick(position: Int, item: Item) {
                 findNavController().navigate(R.id.action_catalogFragment_to_productFragment)
             }
-        })
 
-        itemAdapter.setOnHeartClickListener(object : ItemAdapter.OnClickListener {
-            override fun onClick(position: Int, item: Item) {
-                viewModel.toggleFavorite(item.id)
-                itemAdapter.checkFavorites(item.id, position)
+            override fun onHeartClick(position: Int, item: Item) {
+                viewModel.toggleFavorite(item.id) {
+                    itemAdapter.checkFavorites(item.id, position)
+                }
             }
-
         })
 
     }
