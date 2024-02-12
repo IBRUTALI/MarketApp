@@ -26,52 +26,57 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         with(holder.binding) {
             val imageList = mutableListOf<SlideModel>()
-            mapOfImages[items[position].id]?.forEach {
+            mapOfImages[items[holder.adapterPosition].id]?.forEach {
                 imageList.add(SlideModel(it))
             }
-            "${items[position].price.price} ${items[position].price.unit}".apply {
+            "${items[holder.adapterPosition].price.price} ${items[holder.adapterPosition].price.unit}".apply {
                 price.text = this
             }
             itemImage.setImageList(imageList)
-            "${items[position].price.priceWithDiscount} ${items[position].price.unit}".apply {
+            "${items[holder.adapterPosition].price.priceWithDiscount} ${items[holder.adapterPosition].price.unit}".apply {
                 priceWithDiscount.text = this
             }
-            "-${items[position].price.discount}%".apply { discount.text = this }
-            title.text = items[position].title
-            subtitle.text = items[position].subtitle
-            reviews.text = items[position].feedback.rating.toString()
-            "(${items[position].feedback.count})".apply {
+            "-${items[holder.adapterPosition].price.discount}%".apply {
+                discount.text = this
+            }
+            title.text = items[holder.adapterPosition].title
+            subtitle.text = items[holder.adapterPosition].subtitle
+            reviews.text = items[holder.adapterPosition].feedback.rating.toString()
+            "(${items[holder.adapterPosition].feedback.count})".apply {
                 reviewsCount.text = this
             }
-            if (favorites.contains(items[position].id)) {
+            if (favorites.contains(items[holder.adapterPosition].id)) {
                 heart.setImageResource(R.drawable.ic_heart_fill)
             } else heart.setImageResource(R.drawable.ic_heart_empty)
         }
 
         holder.itemView.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener?.onItemClick(position, items[position])
+                onClickListener?.onItemClick(holder.adapterPosition, items[holder.adapterPosition])
             }
         }
 
         holder.binding.heart.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener?.onHeartClick(position, items[position])
+                onClickListener?.onHeartClick(holder.adapterPosition, items[holder.adapterPosition])
             }
         }
 
         holder.binding.itemImage.setItemClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
                 if (onClickListener != null) {
-                    onClickListener?.onItemClick(position, items[position])
+                    onClickListener?.onItemClick(
+                        holder.adapterPosition,
+                        items[holder.adapterPosition]
+                    )
                 }
             }
+
             override fun doubleClick(position: Int) {}
         })
 
-        holder.binding.add.setOnClickListener {
+        holder.binding.add.setOnClickListener {}
 
-        }
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {
@@ -91,7 +96,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
         items = newList
     }
 
-    fun checkFavorites(itemId: String, position: Int) {
+    fun checkFavorites(position: Int) {
         notifyItemChanged(position, null)
     }
 

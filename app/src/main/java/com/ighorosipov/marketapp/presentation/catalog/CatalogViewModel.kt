@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class CatalogViewModel @AssistedInject constructor(
     private val productRepository: ProductRepository,
-    private val marketRepository: MarketRepository
+    private val marketRepository: MarketRepository,
 ) : BaseViewModel() {
 
     private val _items = MutableLiveData<Result<Items>>()
@@ -25,7 +25,15 @@ class CatalogViewModel @AssistedInject constructor(
     private val _favorites = MutableLiveData<List<String>>(emptyList())
     val favorites: LiveData<List<String>> = _favorites
 
+    private val _tag = MutableLiveData<Tag>()
+    val tag: LiveData<Tag> = _tag
+
+    private val _sortDirection = MutableLiveData<Sort>()
+    val sortDirection: LiveData<Sort> = _sortDirection
+
     init {
+        _sortDirection.value = Sort.Popularity("По популярности")
+        _tag.value = Tag.Face("")
         getItems()
         getFavorites()
     }
@@ -63,7 +71,35 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
+    fun changeSortDirection(value: Sort) {
+        _sortDirection.value = value
+    }
+
     fun sort() {
+        when (sortDirection.value) {
+            is Sort.Popularity -> {
+                _items.value = Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                    it.feedback.rating
+                } ?: emptyList()))
+            }
+
+            is Sort.PriceDescending -> {
+                _items.value = Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                    it.price.priceWithDiscount.toInt()
+                } ?: emptyList()))
+            }
+
+            is Sort.PriceAscending -> {
+                _items.value = Result.Success(Items(items.value?.data?.items?.sortedBy {
+                    it.price.priceWithDiscount.toInt()
+                } ?: emptyList()))
+            }
+
+            else -> {}
+        }
+    }
+
+    fun filterByTag() {
 
     }
 

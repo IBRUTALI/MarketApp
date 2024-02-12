@@ -2,7 +2,6 @@ package com.ighorosipov.marketapp.presentation.catalog
 
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.FragmentCatalogBinding
@@ -23,6 +22,11 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     override val viewModel: CatalogViewModel by lazyViewModel {
         requireContext().appComponent().catalogViewModel().create()
     }
+    private val sortItems = arrayOf(
+        Sort.Popularity("По популярности"),
+        Sort.PriceDescending("По уменьшению цены"),
+        Sort.PriceAscending("По возрастанию цены")
+    )
 
     override fun inject() {
         requireContext().appComponent().inject(this)
@@ -38,7 +42,8 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     private fun adapterClickListeners() {
 
         binding.sortList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
-
+            viewModel.changeSortDirection(sortItems[position])
+            binding.items.scrollToPosition(0)
         }
 
         tagAdapter.setOnClickListener(object : TagAdapter.OnClickListener {
@@ -55,7 +60,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
             override fun onHeartClick(position: Int, item: Item) {
                 viewModel.toggleFavorite(item.id) {
-                    itemAdapter.checkFavorites(item.id, position)
+                    itemAdapter.checkFavorites(position)
                 }
             }
         })
@@ -63,9 +68,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     }
 
     private fun initSortAdapter() {
-        val sortItems = arrayOf("По популярности", "По уменьшению цены", "По возрастанию цены")
-        sortAdapter = ArrayAdapter(requireContext(), R.layout.item_sort, sortItems)
-        binding.sortList.setText(sortItems[0], TextView.BufferType.EDITABLE)
+        sortAdapter = ArrayAdapter(requireContext(), R.layout.item_sort)
+        sortItems.forEach {
+            sortAdapter.add(it.type)
+        }
         binding.sortList.setAdapter(sortAdapter)
     }
 
@@ -78,6 +84,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     }
 
     override fun subscribeToObservers() {
+
         viewModel.items.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
@@ -93,9 +100,32 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
                 }
             }
         }
+
         viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             itemAdapter.setFavorites(favorites)
         }
 
+        viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
+            when (direction) {
+                is Sort.Popularity -> {
+                    binding.sortList.setText(direction.value, false)
+                    viewModel.sort()
+                }
+                is Sort.PriceDescending -> {
+                    binding.sortList.setText(direction.value, false)
+                    viewModel.sort()
+                }
+                is Sort.PriceAscending -> {
+                    binding.sortList.setText(direction.value, false)
+                    viewModel.sort()
+                }
+            }
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.sortList.setText("", false)
     }
 }
