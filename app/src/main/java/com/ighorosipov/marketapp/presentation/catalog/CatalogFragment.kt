@@ -131,7 +131,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
         viewModel.tag.observe(viewLifecycleOwner) { tag ->
                 viewModel.filterByTag(tag)
-                tagAdapter.updateTag(0, tag)
+                tagAdapter.updateTag(tag)
         }
 
     }

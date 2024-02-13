@@ -61,7 +61,7 @@ class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
         fun onClearClick(position: Int, tag: Tag)
     }
 
-    fun updateTag(position: Int, tag: Tag) {
+    fun updateTag(tag: Tag) {
         val lastTagPosition = tags.indexOf(currentTag)
         val currentTagPosition = tags.indexOf(tag)
         currentTag = tag
@@ -72,11 +72,6 @@ class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     fun clearTag(position: Int) {
         currentTag = tags[0]
         notifyItemChanged(position)
-        notifyItemChanged(0, false)
-    }
-
-    fun setCurrentTag(tag: Tag) {
-        currentTag = tag
         notifyItemChanged(0, false)
     }
 
