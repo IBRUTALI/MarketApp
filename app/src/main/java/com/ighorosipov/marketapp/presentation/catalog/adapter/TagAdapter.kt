@@ -1,14 +1,23 @@
 package com.ighorosipov.marketapp.presentation.catalog.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ighorosipov.marketapp.databinding.ItemTagBinding
+import com.ighorosipov.marketapp.presentation.catalog.Tag
 
 class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     private var onClickListener: OnClickListener? = null
-    private var tags = listOf("All", "Face", "Body", "Suntan", "Mask")
+    private var tags = listOf(
+        Tag.All("Смотреть все", "all"),
+        Tag.Face("Лицо", "face"),
+        Tag.Body("Тело", "body"),
+        Tag.Suntan("Загар", "suntan"),
+        Tag.Mask("Массаж", "mask"),
+    )
+
+    private var currentTag = tags[0]
 
     class TagViewHolder(val binding: ItemTagBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -18,15 +27,28 @@ class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
+        val isSelectedTag = tags[position] == currentTag
         with(holder.binding) {
-            tag.text = tags[position]
+            tag.text = tags[position].localString
+            clear.visibility = if(isSelectedTag && tags[position] != tags[0]) {
+                View.VISIBLE
+            } else View.GONE
         }
+
+        holder.itemView.isSelected = isSelectedTag
 
         holder.itemView.setOnClickListener {
             if (onClickListener != null) {
-                onClickListener?.onClick(position, tags[position])
+                onClickListener?.onTagClick(position, tags[position])
             }
         }
+
+        holder.binding.clear.setOnClickListener {
+            if (onClickListener != null) {
+                onClickListener?.onClearClick(position, tags[position])
+            }
+        }
+
     }
 
     fun setOnClickListener(onClickListener: OnClickListener) {
@@ -34,13 +56,28 @@ class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     }
 
     interface OnClickListener {
-        fun onClick(position: Int, tag: String)
+        fun onTagClick(position: Int, tag: Tag)
+
+        fun onClearClick(position: Int, tag: Tag)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setList(newList: List<String>) {
-        tags = newList
-        notifyDataSetChanged()
+    fun updateTag(position: Int, tag: Tag) {
+        val lastTagPosition = tags.indexOf(currentTag)
+        val currentTagPosition = tags.indexOf(tag)
+        currentTag = tag
+        notifyItemChanged(currentTagPosition)
+        notifyItemChanged(lastTagPosition, false)
+    }
+
+    fun clearTag(position: Int) {
+        currentTag = tags[0]
+        notifyItemChanged(position)
+        notifyItemChanged(0, false)
+    }
+
+    fun setCurrentTag(tag: Tag) {
+        currentTag = tag
+        notifyItemChanged(0, false)
     }
 
     override fun getItemCount(): Int {

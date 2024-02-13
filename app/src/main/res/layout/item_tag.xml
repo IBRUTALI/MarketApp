@@ -6,6 +6,8 @@
     android:background="@drawable/selector_tag"
     android:orientation="horizontal"
     android:padding="8dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
     android:layout_margin="4dp">
 
     <TextView

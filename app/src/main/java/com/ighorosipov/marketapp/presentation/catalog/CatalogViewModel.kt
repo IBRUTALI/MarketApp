@@ -3,6 +3,7 @@ package com.ighorosipov.marketapp.presentation.catalog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ighorosipov.marketapp.domain.model.Item
 import com.ighorosipov.marketapp.domain.model.Items
 import com.ighorosipov.marketapp.domain.model.db.Favorite
 import com.ighorosipov.marketapp.domain.repository.MarketRepository
@@ -13,6 +14,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CatalogViewModel @AssistedInject constructor(
     private val productRepository: ProductRepository,
@@ -21,6 +23,8 @@ class CatalogViewModel @AssistedInject constructor(
 
     private val _items = MutableLiveData<Result<Items>>()
     val items: LiveData<Result<Items>> = _items
+
+    private var initialItems: List<Item> = emptyList()
 
     private val _favorites = MutableLiveData<List<String>>(emptyList())
     val favorites: LiveData<List<String>> = _favorites
@@ -33,7 +37,6 @@ class CatalogViewModel @AssistedInject constructor(
 
     init {
         _sortDirection.value = Sort.Popularity("По популярности")
-        _tag.value = Tag.Face("")
         getItems()
         getFavorites()
     }
@@ -41,12 +44,14 @@ class CatalogViewModel @AssistedInject constructor(
     private fun getItems() {
         viewModelScope.launch(Dispatchers.IO) {
             _items.postValue(Result.Loading())
-            _items.postValue(productRepository.getProducts())
+            val items = productRepository.getProducts()
+            _items.postValue(items)
+            initialItems = items.data?.items ?: emptyList()
         }
     }
 
     fun toggleFavorite(id: String, function: () -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val favorite = Favorite(
                 itemId = id
             )
@@ -55,11 +60,15 @@ class CatalogViewModel @AssistedInject constructor(
                 marketRepository.insertUserFavorite(
                     favorite
                 )
-                function.invoke()
+                withContext(Dispatchers.Main) {
+                    function.invoke()
+                }
             } else {
-                _favorites.postValue(favorites.value?.remove(id))
+                withContext(Dispatchers.Main) {
+                    _favorites.postValue(favorites.value?.remove(id))
+                    function.invoke()
+                }
                 marketRepository.deleteUserFavorite(id)
-                function.invoke()
             }
 
         }
@@ -75,31 +84,63 @@ class CatalogViewModel @AssistedInject constructor(
         _sortDirection.value = value
     }
 
-    fun sort() {
-        when (sortDirection.value) {
-            is Sort.Popularity -> {
-                _items.value = Result.Success(Items(items.value?.data?.items?.sortedByDescending {
-                    it.feedback.rating
-                } ?: emptyList()))
-            }
+    fun sort(direction: Sort) {
+        viewModelScope.launch(Dispatchers.Default) {
+            when (direction) {
+                is Sort.Popularity -> {
+                    _items.postValue(
+                        Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                            it.feedback.rating
+                        } ?: emptyList()))
+                    )
+                }
 
-            is Sort.PriceDescending -> {
-                _items.value = Result.Success(Items(items.value?.data?.items?.sortedByDescending {
-                    it.price.priceWithDiscount.toInt()
-                } ?: emptyList()))
-            }
+                is Sort.PriceDescending -> {
+                    _items.postValue(
+                        Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                            it.price.priceWithDiscount.toInt()
+                        } ?: emptyList()))
+                    )
 
-            is Sort.PriceAscending -> {
-                _items.value = Result.Success(Items(items.value?.data?.items?.sortedBy {
-                    it.price.priceWithDiscount.toInt()
-                } ?: emptyList()))
-            }
+                }
 
-            else -> {}
+                is Sort.PriceAscending -> {
+                    _items.postValue(
+                        Result.Success(Items(items.value?.data?.items?.sortedBy {
+                            it.price.priceWithDiscount.toInt()
+                        } ?: emptyList()))
+                    )
+                }
+            }
         }
     }
 
-    fun filterByTag() {
+    fun changeTag(tag: Tag) {
+        _tag.value = tag
+    }
+
+    fun clearTag() {
+        _tag.value = Tag.All("Смотреть все", "all")
+    }
+
+    fun filterByTag(tag: Tag) {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (tag) {
+
+                is Tag.All -> {
+                    _items.postValue(Result.Success(Items(initialItems)))
+                    sortDirection.value?.let { sort(it) }
+                }
+
+                else -> {
+                    _items.postValue(Result.Success(Items(initialItems.filter {
+                        it.tags.contains(tag.tag)
+                    })))
+                    sortDirection.value?.let { sort(it) }
+                }
+
+            }
+        }
 
     }
 
@@ -113,7 +154,7 @@ class CatalogViewModel @AssistedInject constructor(
 
 operator fun <T> MutableLiveData<List<T>>.plusAssign(item: T) {
     val value = this.value ?: emptyList()
-    this.value = value + listOf(item)
+    this.postValue(value + listOf(item))
 }
 
 private fun List<String>.remove(string: String): List<String> {

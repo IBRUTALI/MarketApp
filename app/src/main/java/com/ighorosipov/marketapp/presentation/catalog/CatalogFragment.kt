@@ -47,8 +47,13 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         }
 
         tagAdapter.setOnClickListener(object : TagAdapter.OnClickListener {
-            override fun onClick(position: Int, tag: String) {
+            override fun onTagClick(position: Int, tag: Tag) {
+                viewModel.changeTag(tag)
+            }
 
+            override fun onClearClick(position: Int, tag: Tag) {
+                viewModel.clearTag()
+                tagAdapter.clearTag(position)
             }
         })
 
@@ -109,17 +114,24 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             when (direction) {
                 is Sort.Popularity -> {
                     binding.sortList.setText(direction.value, false)
-                    viewModel.sort()
+                    viewModel.sort(direction)
                 }
+
                 is Sort.PriceDescending -> {
                     binding.sortList.setText(direction.value, false)
-                    viewModel.sort()
+                    viewModel.sort(direction)
                 }
+
                 is Sort.PriceAscending -> {
                     binding.sortList.setText(direction.value, false)
-                    viewModel.sort()
+                    viewModel.sort(direction)
                 }
             }
+        }
+
+        viewModel.tag.observe(viewLifecycleOwner) { tag ->
+                viewModel.filterByTag(tag)
+                tagAdapter.updateTag(0, tag)
         }
 
     }
