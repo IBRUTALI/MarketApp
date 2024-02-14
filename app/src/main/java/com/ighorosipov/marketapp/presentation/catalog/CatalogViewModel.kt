@@ -13,6 +13,8 @@ import com.ighorosipov.marketapp.utils.base.BaseViewModel
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -35,8 +37,10 @@ class CatalogViewModel @AssistedInject constructor(
     private val _sortDirection = MutableLiveData<Sort>()
     val sortDirection: LiveData<Sort> = _sortDirection
 
+    private var job: Job? = null
+
     init {
-        _sortDirection.value = Sort.Popularity("По популярности")
+        _sortDirection.value = Sort.Popularity()
         getItems()
         getFavorites()
     }
@@ -84,12 +88,13 @@ class CatalogViewModel @AssistedInject constructor(
         _sortDirection.value = value
     }
 
-    fun sort(direction: Sort) {
+    fun sort(direction: Sort, filteredItemsByTag: List<Item>?=null) {
         viewModelScope.launch(Dispatchers.Default) {
+            val items = filteredItemsByTag ?: items.value?.data?.items
             when (direction) {
                 is Sort.Popularity -> {
                     _items.postValue(
-                        Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                        Result.Success(Items(items?.sortedByDescending {
                             it.feedback.rating
                         } ?: emptyList()))
                     )
@@ -97,7 +102,7 @@ class CatalogViewModel @AssistedInject constructor(
 
                 is Sort.PriceDescending -> {
                     _items.postValue(
-                        Result.Success(Items(items.value?.data?.items?.sortedByDescending {
+                        Result.Success(Items(items?.sortedByDescending {
                             it.price.priceWithDiscount.toInt()
                         } ?: emptyList()))
                     )
@@ -106,7 +111,7 @@ class CatalogViewModel @AssistedInject constructor(
 
                 is Sort.PriceAscending -> {
                     _items.postValue(
-                        Result.Success(Items(items.value?.data?.items?.sortedBy {
+                        Result.Success(Items(items?.sortedBy {
                             it.price.priceWithDiscount.toInt()
                         } ?: emptyList()))
                     )
@@ -120,23 +125,29 @@ class CatalogViewModel @AssistedInject constructor(
     }
 
     fun clearTag() {
-        _tag.value = Tag.All("Смотреть все", "all")
+        _tag.value = Tag.All()
     }
 
     fun filterByTag(tag: Tag) {
-        viewModelScope.launch(Dispatchers.IO) {
+        if (job != null) {
+            job?.cancel()
+            job = null
+        }
+        job = viewModelScope.launch(Dispatchers.IO) {
+            if (isActive.not()) return@launch
             when (tag) {
 
                 is Tag.All -> {
-                    _items.postValue(Result.Success(Items(initialItems)))
-                    sortDirection.value?.let { sort(it) }
+                    sortDirection.value?.let { sort(it, initialItems) }
                 }
 
                 else -> {
-                    _items.postValue(Result.Success(Items(initialItems.filter {
+                    initialItems.filter {
                         it.tags.contains(tag.tag)
-                    })))
-                    sortDirection.value?.let { sort(it) }
+                    }.also { list ->
+                        sortDirection.value?.let { sort(it, list) }
+                    }
+
                 }
 
             }

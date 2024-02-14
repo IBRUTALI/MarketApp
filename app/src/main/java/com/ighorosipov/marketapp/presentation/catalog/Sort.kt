@@ -1,7 +1,10 @@
 package com.ighorosipov.marketapp.presentation.catalog
 
-sealed class Sort(val type: String) {
-    data class PriceAscending(val value: String) : Sort(value)
-    data class PriceDescending(val value: String) : Sort(value)
-    data class Popularity(val value: String) : Sort(value)
+import androidx.annotation.StringRes
+import com.ighorosipov.marketapp.R
+
+sealed class Sort(@StringRes val resId: Int) {
+    data class PriceAscending(@StringRes val id: Int = R.string.by_price_ascend) : Sort(id)
+    data class PriceDescending(@StringRes val id: Int = R.string.by_price_descend) : Sort(id)
+    data class Popularity(@StringRes val id: Int = R.string.by_popularity) : Sort(id)
 }

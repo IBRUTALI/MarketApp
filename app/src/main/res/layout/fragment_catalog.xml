@@ -9,10 +9,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/sort"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="-15dp"
-        android:paddingEnd="0dp"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         app:endIconDrawable="@drawable/ic_arrow_down"
@@ -23,11 +21,14 @@
         <AutoCompleteTextView
             android:id="@+id/sort_list"
             style="@style/BaseText.Title4"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_sort"
             android:drawablePadding="4dp"
             android:inputType="none"
+            android:textAlignment="center"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
             android:textColor="@color/text_dark_grey"
             android:textIsSelectable="false"
             tools:text="@string/by_popularity" />

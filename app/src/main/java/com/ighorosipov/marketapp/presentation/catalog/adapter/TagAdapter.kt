@@ -10,11 +10,11 @@ import com.ighorosipov.marketapp.presentation.catalog.Tag
 class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     private var onClickListener: OnClickListener? = null
     private var tags = listOf(
-        Tag.All("Смотреть все", "all"),
-        Tag.Face("Лицо", "face"),
-        Tag.Body("Тело", "body"),
-        Tag.Suntan("Загар", "suntan"),
-        Tag.Mask("Массаж", "mask"),
+        Tag.All(),
+        Tag.Face(),
+        Tag.Body(),
+        Tag.Suntan(),
+        Tag.Mask(),
     )
 
     private var currentTag = tags[0]
@@ -29,7 +29,7 @@ class TagAdapter : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
     override fun onBindViewHolder(holder: TagViewHolder, position: Int) {
         val isSelectedTag = tags[position] == currentTag
         with(holder.binding) {
-            tag.text = tags[position].localString
+            tag.text = holder.itemView.context.resources.getString(tags[position].resId)
             clear.visibility = if(isSelectedTag && tags[position] != tags[0]) {
                 View.VISIBLE
             } else View.GONE

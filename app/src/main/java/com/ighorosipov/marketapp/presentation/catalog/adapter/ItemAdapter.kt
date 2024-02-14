@@ -14,6 +14,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     private var onClickListener: OnClickListener? = null
     private var items = emptyList<Item>()
     private var favorites = emptyList<String>()
+    private var firstPosition = 0
 
 
     class ItemViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
@@ -25,6 +26,9 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         with(holder.binding) {
+            if (holder.adapterPosition == 0) {
+                firstPosition = position
+            }
             val imageList = mutableListOf<SlideModel>()
             mapOfImages[items[holder.adapterPosition].id]?.forEach {
                 imageList.add(SlideModel(it))
@@ -102,6 +106,10 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     fun setFavorites(newList: List<String>) {
         favorites = newList
+    }
+
+    fun getFirstPosition(): Int {
+        return firstPosition
     }
 
     override fun getItemCount(): Int {

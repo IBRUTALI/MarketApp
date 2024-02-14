@@ -3,6 +3,8 @@ package com.ighorosipov.marketapp.presentation.catalog
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.FragmentCatalogBinding
 import com.ighorosipov.marketapp.domain.model.Item
@@ -13,19 +15,21 @@ import com.ighorosipov.marketapp.utils.base.BaseFragment
 import com.ighorosipov.marketapp.utils.di.appComponent
 import com.ighorosipov.marketapp.utils.di.lazyViewModel
 
+
 class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     FragmentCatalogBinding::inflate
 ) {
     private val tagAdapter by lazy { TagAdapter() }
     private val itemAdapter by lazy { ItemAdapter() }
     private lateinit var sortAdapter: ArrayAdapter<String>
+    private lateinit var smoothScroller: SmoothScroller
     override val viewModel: CatalogViewModel by lazyViewModel {
         requireContext().appComponent().catalogViewModel().create()
     }
     private val sortItems = arrayOf(
-        Sort.Popularity("По популярности"),
-        Sort.PriceDescending("По уменьшению цены"),
-        Sort.PriceAscending("По возрастанию цены")
+        Sort.Popularity(),
+        Sort.PriceDescending(),
+        Sort.PriceAscending()
     )
 
     override fun inject() {
@@ -43,7 +47,6 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
         binding.sortList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
             viewModel.changeSortDirection(sortItems[position])
-            binding.items.scrollToPosition(0)
         }
 
         tagAdapter.setOnClickListener(object : TagAdapter.OnClickListener {
@@ -75,7 +78,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     private fun initSortAdapter() {
         sortAdapter = ArrayAdapter(requireContext(), R.layout.item_sort)
         sortItems.forEach {
-            sortAdapter.add(it.type)
+            sortAdapter.add(requireContext().resources.getString(it.resId))
         }
         binding.sortList.setAdapter(sortAdapter)
     }
@@ -86,6 +89,11 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
     private fun initItemAdapter() {
         binding.items.adapter = itemAdapter
+        smoothScroller = object : LinearSmoothScroller(context) {
+            override fun getVerticalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
+        }
     }
 
     override fun subscribeToObservers() {
@@ -98,6 +106,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
                 is Result.Success -> {
                     itemAdapter.setList(result.data?.items ?: emptyList())
+                    smoothScroller.targetPosition = itemAdapter.getFirstPosition()
+                    binding.items.post {
+                        binding.items.layoutManager?.startSmoothScroll(smoothScroller)
+                    }
                 }
 
                 is Result.Error -> {
@@ -111,22 +123,8 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         }
 
         viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
-            when (direction) {
-                is Sort.Popularity -> {
-                    binding.sortList.setText(direction.value, false)
-                    viewModel.sort(direction)
-                }
-
-                is Sort.PriceDescending -> {
-                    binding.sortList.setText(direction.value, false)
-                    viewModel.sort(direction)
-                }
-
-                is Sort.PriceAscending -> {
-                    binding.sortList.setText(direction.value, false)
-                    viewModel.sort(direction)
-                }
-            }
+            binding.sortList.setText(requireContext().getString(direction.resId), false)
+            viewModel.sort(direction)
         }
 
         viewModel.tag.observe(viewLifecycleOwner) { tag ->
