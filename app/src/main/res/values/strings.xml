@@ -18,11 +18,13 @@
     <string name="conditions_of_the_loyalty"><u>условия программы лояльности</u></string>
     <!--  Main  -->
     <!--  Catalog  -->
-    <string name="price_with_discount">priceWithDiscount</string>
-    <string name="price">Цена</string>
+    <string name="price_with_discount">899 ₽</string>
+    <string name="price">549 ₽</string>
+    <string name="discount_percent">-39%</string>
     <string name="brand">Бренд</string>
     <string name="title">Заголовок</string>
-    <string name="reviews_count">0.0</string>
+    <string name="rating_count">0.0</string>
+    <string name="reviews_count">(0)</string>
         <!--  Sort list  -->
         <string name="by_popularity">По популярности</string>
         <string name="by_price_descend">По уменьшению цены</string>
@@ -35,7 +37,11 @@
         <string name="mask">Массаж</string>
     <string name="filter">Фильтры</string>
     <string name="tag">Тэг</string>
+    <string name="subtitle">Подзаголовок</string>
     <!--  Product  -->
+    <string name="available">Доступно для заказа</string>
+    <string name="reviews_count_text">0 отзывов</string>
+    <string name="description">Описание</string>
     <!--  Account  -->
     <!--  Favorite  -->
 </resources>

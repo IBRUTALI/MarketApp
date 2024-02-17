@@ -1,13 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.product.ProductFragment">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp">
 
-</FrameLayout>
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/itemImage"
+            android:layout_width="wrap_content"
+            android:layout_height="368dp"
+            android:scaleType="centerCrop"
+            app:iss_selected_dot="@drawable/ic_dot_small_active"
+            app:iss_unselected_dot="@drawable/ic_dot_small_inactive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toTopOf="@+id/itemImage"
+            app:srcCompat="@drawable/ic_heart_empty" />
+
+        <ImageView
+            android:id="@+id/question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/itemImage"
+            app:layout_constraintStart_toStartOf="@+id/itemImage"
+            app:srcCompat="@drawable/ic_question" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/BaseText.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/title"
+            android:textColor="@color/text_grey"
+            app:layout_constraintStart_toStartOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/itemImage" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            style="@style/BaseText.LargeTitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/subtitle"
+            android:textColor="@color/text_black"
+            app:layout_constraintStart_toStartOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/available"
+            style="@style/BaseText.Text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/available"
+            android:textColor="@color/text_grey"
+            app:layout_constraintStart_toStartOf="@+id/subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            style="@style/CustomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:numStars="5"
+            android:rating="4.3"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="@+id/available"
+            app:layout_constraintTop_toBottomOf="@+id/available" />
+
+        <TextView
+            android:id="@+id/reviews"
+            style="@style/BaseText.Text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/rating_count"
+            android:textColor="@color/text_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
+            app:layout_constraintStart_toEndOf="@+id/rating_bar"
+            app:layout_constraintTop_toTopOf="@+id/rating_bar" />
+
+        <TextView
+            android:id="@+id/reviews_count"
+            style="@style/BaseText.Text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/reviews_count_text"
+            android:textColor="@color/text_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/reviews"
+            app:layout_constraintStart_toEndOf="@+id/reviews"
+            app:layout_constraintTop_toTopOf="@+id/reviews" />
+
+        <TextView
+            android:id="@+id/price_with_discount"
+            style="@style/BaseText.LargeTitle1"
+            android:textSize="24sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/price_with_discount"
+            android:textColor="@color/text_black"
+            app:layout_constraintStart_toStartOf="@+id/rating_bar"
+            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+
+        <com.ighorosipov.marketapp.presentation.custom.StrikeTextView
+            android:id="@+id/price"
+            style="@style/BaseText.Text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/price"
+            android:textColor="@color/text_grey"
+            app:layout_constraintBottom_toBottomOf="@+id/price_with_discount"
+            app:layout_constraintStart_toEndOf="@+id/price_with_discount"
+            app:layout_constraintTop_toTopOf="@+id/price_with_discount" />
+
+        <TextView
+            android:id="@+id/discount"
+            style="@style/BaseText.ElementalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_button"
+            android:paddingVertical="3dp"
+            android:paddingHorizontal="7dp"
+            android:text="@string/discount_percent"
+            android:textColor="@color/text_white"
+            app:layout_constraintBottom_toBottomOf="@+id/price"
+            app:layout_constraintStart_toEndOf="@+id/price"
+            app:layout_constraintTop_toTopOf="@+id/price" />
+
+        <TextView
+            android:id="@+id/description"
+            style="@style/BaseText.Title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/description"
+            android:textColor="@color/text_black"
+            app:layout_constraintStart_toStartOf="@+id/price_with_discount"
+            app:layout_constraintTop_toBottomOf="@+id/price_with_discount" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_brand"
+            style="@style/TrueMaterialButton.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            android:text="@string/title"
+            app:leftIcon="@drawable/ic_heart_empty"
+            app:leftIconSize="24dp"
+            app:rightIconSize="24dp"
+            app:rightIcon="@drawable/ic_heart_fill"
+            app:layout_constraintEnd_toEndOf="@+id/description"
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

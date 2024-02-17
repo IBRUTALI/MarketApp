@@ -5,12 +5,13 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.ighorosipov.marketapp.R
 
 
 class StrikeTextView : AppCompatTextView {
     private var dividerColor = 0
-    private var paint: Paint? = null
+    private var paint: Paint = Paint()
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -29,17 +30,15 @@ class StrikeTextView : AppCompatTextView {
     }
 
     private fun init(context: Context) {
-        val resources = context.resources
         //replace with your color
-        dividerColor = resources.getColor(R.color.text_grey)
-        paint = Paint()
-        paint!!.color = dividerColor
+        dividerColor = ContextCompat.getColor(context, R.color.text_grey)
+        paint.color = dividerColor
         //replace with your desired width
-        paint!!.strokeWidth = 2F
+        paint.strokeWidth = 2F
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawLine(-2f, height.toFloat(), width.toFloat(), 2f, paint!!)
+        canvas.drawLine(-2f, height.toFloat(), width.toFloat(), 2f, paint)
     }
 }

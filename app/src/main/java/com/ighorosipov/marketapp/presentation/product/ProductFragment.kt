@@ -17,7 +17,11 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
     }
 
     override fun initViews() {
-
+        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            if (fromUser) {
+                ratingBar.rating = 2.3f
+            }
+        }
     }
 
     override fun subscribeToObservers() {

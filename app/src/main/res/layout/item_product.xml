@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/itemImage" />
 
         <TextView
-            android:id="@+id/price_with_discount"
+            android:id="@+id/priceWithDiscount"
             style="@style/BaseText.Title2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,12 +68,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="@drawable/bg_button"
-            android:padding="3dp"
-            android:text="@string/price"
+            android:paddingVertical="3dp"
+            android:paddingHorizontal="7dp"
+            android:text="@string/discount_percent"
             android:textColor="@color/text_white"
-            app:layout_constraintBottom_toBottomOf="@+id/price_with_discount"
-            app:layout_constraintStart_toEndOf="@+id/price_with_discount"
-            app:layout_constraintTop_toTopOf="@+id/price_with_discount" />
+            app:layout_constraintBottom_toBottomOf="@+id/priceWithDiscount"
+            app:layout_constraintStart_toEndOf="@+id/priceWithDiscount"
+            app:layout_constraintTop_toTopOf="@+id/priceWithDiscount" />
 
         <TextView
             android:id="@+id/title"
@@ -83,8 +84,8 @@
             android:layout_marginTop="6dp"
             android:text="@string/brand"
             android:textColor="@color/text_black"
-            app:layout_constraintStart_toStartOf="@+id/price_with_discount"
-            app:layout_constraintTop_toBottomOf="@+id/price_with_discount" />
+            app:layout_constraintStart_toStartOf="@+id/priceWithDiscount"
+            app:layout_constraintTop_toBottomOf="@+id/priceWithDiscount" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -115,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="@string/reviews_count"
+            android:text="@string/rating_count"
             android:textColor="@color/text_orange"
             app:layout_constraintBottom_toBottomOf="@+id/star"
             app:layout_constraintStart_toEndOf="@+id/star"
@@ -131,8 +132,7 @@
             android:textColor="@color/text_grey"
             app:layout_constraintBottom_toBottomOf="@+id/reviews"
             app:layout_constraintStart_toEndOf="@+id/reviews"
-            app:layout_constraintTop_toTopOf="@+id/reviews"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="@+id/reviews" />
 
         <ImageView
             android:id="@+id/add"

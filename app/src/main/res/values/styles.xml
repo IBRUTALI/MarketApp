@@ -90,36 +90,89 @@
     </style>
 
     <!-- Buttons. -->
-    <style name="BaseButton" parent="Widget.Material3.Button">
+    <style name="MarketButton" parent="Widget.Material3.Button">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
         <item name="cornerRadius">@dimen/base_corner_radius</item>
+        <item name="android:paddingTop">@dimen/button_padding_vertical_medium</item>
+        <item name="android:paddingBottom">@dimen/button_padding_vertical_medium</item>
     </style>
 
-    <style name="BaseButton.CommonButton">
+    <style name="MarketButton.Primary">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
         <item name="backgroundTint">@drawable/selector_button</item>
         <item name="android:textColor">@color/text_white</item>
     </style>
 
-    <style name="BaseButton.PanelButton">
+    <style name="MarketButton.Primary.Add">
+        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
+        <item name="backgroundTint">@drawable/selector_button</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="MarketButton.Secondary">
+        <item name="android:textAppearance">@style/BaseText.Title2</item>
+        <item name="backgroundTint">@color/bg_light_grey</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/button_padding_start</item>
+        <item name="android:paddingEnd">@dimen/button_padding_end</item>
+    </style>
+
+    <style name="MarketButton.Secondary.Icon">
+        <item name="icon">@drawable/ic_arrow_right</item>
+        <item name="iconGravity">end</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="iconSize">@dimen/ic_size_medium</item>
+        <item name="iconTint">@color/elem_black</item>
+        <item name="android:paddingTop">@dimen/button_padding_vertical_small</item>
+        <item name="android:paddingBottom">@dimen/button_padding_vertical_small</item>
+    </style>
+
+    <style name="MarketButton.Secondary.TwoText">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
         <item name="backgroundTint">@color/bg_white</item>
         <item name="android:textColor">@color/text_black</item>
     </style>
 
     <!--  Toolbar  -->
-    <style name="CustomToolbarStyle" parent="">
+    <style name="CustomToolbarStyle">
         <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
+
     <style name="CustomToolbarStyle.Event" parent="CustomToolbarStyle">
-        <item name="android:titleTextAppearance">@style/TextAppearance.Widget.Event.Toolbar.Title</item>
+        <item name="android:titleTextAppearance">@style/TextAppearance.Widget.Event.Toolbar.Title
+        </item>
         <item name="android:tint">?attr/colorPrimaryVariant</item>
         <item name="android:textColorPrimary">@color/text_black</item>
     </style>
 
     <style name="TextAppearance.Widget.Event.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="textAppearanceBody1">@style/BaseText.Title1</item>
+    </style>
+
+    <!--  RatingBar  -->
+    <style name="CustomRatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:minHeight">@dimen/ic_size_small</item>
+        <item name="android:maxHeight">@dimen/ic_size_small</item>
+    </style>
+
+    <!--  TrueMaterialButton  -->
+    <style name="TrueMaterialButton" parent="Widget.Material3.Button">
+        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
+        <item name="cornerRadius">@dimen/base_corner_radius</item>
+        <item name="android:paddingTop">@dimen/button_padding_vertical_medium</item>
+        <item name="android:paddingBottom">@dimen/button_padding_vertical_medium</item>
+    </style>
+
+    <style name="TrueMaterialButton.Secondary">
+        <item name="android:textAppearance">@style/BaseText.Title2</item>
+        <item name="backgroundTint">@color/bg_light_grey</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/button_padding_start</item>
+        <item name="android:paddingEnd">@dimen/button_padding_end</item>
     </style>
 
 </resources>
