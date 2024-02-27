@@ -159,11 +159,10 @@
     </style>
 
     <!--  TrueMaterialButton  -->
-    <style name="TrueMaterialButton" parent="Widget.Material3.Button">
+    <style name="TrueMaterialButton" parent="">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
         <item name="cornerRadius">@dimen/base_corner_radius</item>
-        <item name="android:paddingTop">@dimen/button_padding_vertical_medium</item>
-        <item name="android:paddingBottom">@dimen/button_padding_vertical_medium</item>
+        <item name="android:background">@drawable/shape_button</item>
     </style>
 
     <style name="TrueMaterialButton.Secondary">
@@ -171,8 +170,6 @@
         <item name="backgroundTint">@color/bg_light_grey</item>
         <item name="android:textColor">@color/text_black</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:paddingStart">@dimen/button_padding_start</item>
-        <item name="android:paddingEnd">@dimen/button_padding_end</item>
     </style>
 
 </resources>

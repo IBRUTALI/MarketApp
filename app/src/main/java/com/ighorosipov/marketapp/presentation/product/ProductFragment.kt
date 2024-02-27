@@ -18,9 +18,10 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
 
     override fun initViews() {
         binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-            if (fromUser) {
-                ratingBar.rating = 2.3f
-            }
+                ratingBar.rating = 5f
+        }
+        binding.buttonBrand.setOnClickListener {
+
         }
     }
 

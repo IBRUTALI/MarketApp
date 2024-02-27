@@ -5,15 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_button"
-    android:padding="15dp">
+    android:layout_gravity="center"
+    android:duplicateParentState="true"
+    android:padding="10dp">
 
     <ImageView
-        android:id="@+id/left_drawable"
+        android:id="@+id/left_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_home" />
+        android:layout_gravity="center_vertical"
+        android:duplicateParentState="true"
+        tools:src="@drawable/ic_home" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -21,6 +23,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="8dp"
         android:layout_weight="1"
+        android:duplicateParentState="true"
         android:orientation="vertical">
 
         <TextView
@@ -28,21 +31,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:duplicateParentState="true"
+            android:clickable="false"
             android:text="@string/title" />
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:clickable="false"
             android:text="@string/subtitle" />
 
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/right_drawable"
+        android:id="@+id/right_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
+        android:duplicateParentState="true"
         tools:src="@drawable/ic_home" />
 
 </LinearLayout>
