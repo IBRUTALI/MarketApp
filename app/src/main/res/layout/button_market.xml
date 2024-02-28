@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:duplicateParentState="true"
-    android:padding="10dp">
+    android:paddingHorizontal="8dp">
 
     <ImageView
         android:id="@+id/left_icon"
@@ -20,8 +20,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginHorizontal="8dp"
+        android:paddingVertical="6dp"
         android:layout_weight="1"
         android:duplicateParentState="true"
         android:orientation="vertical">
@@ -30,7 +30,6 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:duplicateParentState="true"
             android:clickable="false"
             android:text="@string/title" />
@@ -39,6 +38,7 @@
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:duplicateParentState="true"
             android:clickable="false"
             android:text="@string/subtitle" />

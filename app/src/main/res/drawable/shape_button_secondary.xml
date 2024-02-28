@@ -10,6 +10,6 @@
 
     <corners android:radius="@dimen/base_corner_radius" />
 
-    <solid android:color="@drawable/selector_button" />
+    <solid android:color="@drawable/selector_button_secondary" />
 
 </shape>

@@ -2,7 +2,7 @@
 <resources>
     <!-- Text style. -->
     <style name="BaseText">
-        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textColor">@color/text_black</item>
         <item name="android:fontFamily">@font/sf_pro_display_medium</item>
     </style>
 
@@ -99,13 +99,13 @@
 
     <style name="MarketButton.Primary">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
-        <item name="backgroundTint">@drawable/selector_button</item>
+        <item name="backgroundTint">@drawable/selector_button_base</item>
         <item name="android:textColor">@color/text_white</item>
     </style>
 
     <style name="MarketButton.Primary.Add">
         <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
-        <item name="backgroundTint">@drawable/selector_button</item>
+        <item name="backgroundTint">@drawable/selector_button_base</item>
         <item name="android:textColor">@color/text_white</item>
     </style>
 
@@ -160,16 +160,16 @@
 
     <!--  TrueMaterialButton  -->
     <style name="TrueMaterialButton" parent="">
-        <item name="android:textAppearance">@style/BaseText.ButtonText2</item>
-        <item name="cornerRadius">@dimen/base_corner_radius</item>
-        <item name="android:background">@drawable/shape_button</item>
+        <item name="titleTextAppearance">@style/BaseText.ButtonText2</item>
+        <item name="android:colorControlHighlight">@color/bg_light_pink</item>
+        <item name="android:background">@drawable/ripple_button_base</item>
     </style>
 
     <style name="TrueMaterialButton.Secondary">
-        <item name="android:textAppearance">@style/BaseText.Title2</item>
-        <item name="backgroundTint">@color/bg_light_grey</item>
-        <item name="android:textColor">@color/text_black</item>
-        <item name="android:textAlignment">center</item>
+        <item name="titleTextAppearance">@style/BaseText.Title2</item>
+        <item name="subtitleTextAppearance">@style/BaseText.Caption1</item>
+        <item name="android:colorControlHighlight">@color/bg_light_grey</item>
+        <item name="android:background">@drawable/ripple_button_secondary</item>
     </style>
 
 </resources>

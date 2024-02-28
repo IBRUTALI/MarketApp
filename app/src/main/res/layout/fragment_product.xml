@@ -163,15 +163,12 @@
 
         <com.ighorosipov.marketapp.presentation.custom.MarketButton
             android:id="@+id/button_brand"
-            style="@style/TrueMaterialButton"
+            style="@style/TrueMaterialButton.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_padding_top_medium"
             app:title="@string/title"
-            app:state_enabled="true"
-            app:subtitle="@string/title"
-            app:leftIcon="@drawable/ic_home"
-            app:rightIcon="@drawable/ic_left_arrow"
+            app:rightIcon="@drawable/ic_arrow_right"
             app:leftIconSize="32dp"
             app:rightIconSize="32dp"
             app:layout_constraintEnd_toEndOf="@+id/description"
