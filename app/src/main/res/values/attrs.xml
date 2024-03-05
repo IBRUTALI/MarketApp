@@ -3,10 +3,13 @@
 
     <declare-styleable name="MarketButton">
         <attr name="title" format="string" />
+        <attr name="titleStrike" format="string" />
         <attr name="subtitle" format="string" />
         <attr name="titleTextColor" format="color" />
+        <attr name="titleStrikeTextColor" format="color" />
         <attr name="subtitleTextColor" format="color" />
         <attr name="titleTextAppearance" format="reference" />
+        <attr name="titleStrikeTextAppearance" format="reference" />
         <attr name="subtitleTextAppearance" format="reference" />
         <attr name="leftIcon" format="reference" />
         <attr name="rightIcon" format="reference" />
@@ -15,7 +18,20 @@
         <attr name="rightIconSize" format="dimension" />
         <attr name="rightIconTint" format="dimension" />
         <attr name="state_enabled" format="boolean" />
+        <attr name="textLayoutOrientation">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
         <attr name="titleGravity">
+            <enum name="top" value="0" />
+            <enum name="start" value="1" />
+            <enum name="end" value="2" />
+            <enum name="bottom" value="3" />
+            <enum name="center" value="4" />
+            <enum name="center_vertical" value="5" />
+            <enum name="center_horizontal" value="6" />
+        </attr>
+        <attr name="titleStrikeGravity">
             <enum name="top" value="0" />
             <enum name="start" value="1" />
             <enum name="end" value="2" />
@@ -52,6 +68,10 @@
             <enum name="center_horizontal" value="6" />
         </attr>
         <attr name="marketButtonStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="StrikeTextView">
+        <attr name="android:textColor" format="color" />
     </declare-styleable>
 
 </resources>

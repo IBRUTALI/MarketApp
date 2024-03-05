@@ -42,6 +42,10 @@
     <string name="available">Доступно для заказа</string>
     <string name="reviews_count_text">0 отзывов</string>
     <string name="description">Описание</string>
+    <string name="info">Характеристики</string>
+    <string name="ingredients">Состав</string>
+    <string name="more_details">Подробнее</string>
+    <string name="add_to_basket">Добавить в корзину</string>
     <!--  Account  -->
     <!--  Favorite  -->
 </resources>

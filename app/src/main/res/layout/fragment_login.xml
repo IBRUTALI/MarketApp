@@ -78,14 +78,13 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <com.ighorosipov.marketapp.presentation.custom.MarketButton
         android:id="@+id/loginButton"
-        style="@style/MarketButton.Primary"
+        style="@style/TrueMaterialButton.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/base_padding_small"
-        android:paddingVertical="@dimen/base_padding_top_medium"
-        android:text="@string/login"
+        app:title="@string/login"
         android:fitsSystemWindows="true"
         app:layout_constraintEnd_toEndOf="@+id/numberInputLayout"
         app:layout_constraintStart_toStartOf="@+id/numberInputLayout"

@@ -2,39 +2,45 @@ package com.ighorosipov.marketapp.presentation.custom
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.content.ContextCompat
 import com.ighorosipov.marketapp.R
 
 
-class StrikeTextView : AppCompatTextView {
-    private var dividerColor = 0
+class StrikeTextView @JvmOverloads constructor(
+    private val context: Context,
+    private val attrs: AttributeSet? = null,
+    private val defStyleAttr: Int = 0,
+) : AppCompatTextView(context, attrs, defStyleAttr) {
+
+    private var strikeColor = 0
     private var paint: Paint = Paint()
 
-    constructor(context: Context) : super(context) {
-        init(context)
+    init {
+        init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init(context)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    ) {
-        init(context)
-    }
-
-    private fun init(context: Context) {
-        //replace with your color
-        dividerColor = ContextCompat.getColor(context, R.color.text_grey)
-        paint.color = dividerColor
+    private fun init() {
+        val attributes = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.StrikeTextView,
+            0,
+            0
+        )
+        strikeColor = attributes.getColor(R.styleable.StrikeTextView_android_textColor, Color.BLACK).apply {
+            setStrikeColor(this)
+        }
+        attributes.recycle()
         //replace with your desired width
         paint.strokeWidth = 2F
+    }
+
+    fun setStrikeColor(color: Int?) {
+        if(color != null) {
+            paint.color = color
+        }
     }
 
     override fun onDraw(canvas: Canvas) {

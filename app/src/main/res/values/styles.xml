@@ -12,6 +12,7 @@
 
     <style name="BaseText.Title1">
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_grey</item>
     </style>
 
     <style name="BaseText.Title2">
@@ -29,6 +30,7 @@
 
     <style name="BaseText.Text1">
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/text_grey</item>
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -40,14 +42,17 @@
 
     <style name="BaseText.ButtonText1">
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_grey</item>
     </style>
 
     <style name="BaseText.ButtonText2">
         <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_white</item>
     </style>
 
     <style name="BaseText.ElementalText">
         <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textColor">@color/text_white</item>
         <item name="android:textSize">9sp</item>
     </style>
 
@@ -163,6 +168,20 @@
         <item name="titleTextAppearance">@style/BaseText.ButtonText2</item>
         <item name="android:colorControlHighlight">@color/bg_light_pink</item>
         <item name="android:background">@drawable/ripple_button_base</item>
+    </style>
+
+    <style name="TrueMaterialButton.Primary">
+        <item name="textLayoutOrientation">vertical</item>
+        <item name="titleGravity">center</item>
+    </style>
+
+    <style name="TrueMaterialButton.Add">
+        <item name="textLayoutOrientation">horizontal</item>
+        <item name="titleGravity">start</item>
+        <item name="titleStrikeGravity">center</item>
+        <item name="subtitleTextAppearance">@style/BaseText.ButtonText2</item>
+        <item name="titleStrikeTextAppearance">@style/BaseText.Caption1</item>
+        <item name="titleStrikeTextColor">@color/text_light_pink</item>
     </style>
 
     <style name="TrueMaterialButton.Secondary">
