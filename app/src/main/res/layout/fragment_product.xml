@@ -26,7 +26,6 @@
             android:id="@+id/heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="@+id/itemImage"
             app:layout_constraintTop_toTopOf="@+id/itemImage"
@@ -183,7 +182,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="@string/description"
+            android:text="@string/hide"
+            app:layout_constraintStart_toStartOf="@+id/description"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <TextView
+            android:id="@+id/description_details"
+            style="@style/BaseText.ButtonText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:visibility="gone"
+            android:text="@string/more_details"
             app:layout_constraintStart_toStartOf="@+id/description"
             app:layout_constraintTop_toBottomOf="@+id/description" />
 
@@ -209,13 +219,23 @@
         <TextView
             android:id="@+id/ingredients_hc"
             style="@style/BaseText.Title1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:textColor="@color/text_black"
             android:text="@string/ingredients"
+            android:textColor="@color/text_black"
+            app:layout_constraintEnd_toStartOf="@+id/ingredients_copy"
             app:layout_constraintStart_toStartOf="@+id/info"
             app:layout_constraintTop_toBottomOf="@+id/info" />
+
+        <ImageView
+            android:id="@+id/ingredients_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_copy"
+            app:layout_constraintBottom_toBottomOf="@+id/ingredients_hc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ingredients_hc" />
 
         <TextView
             android:id="@+id/ingredients"
@@ -235,6 +255,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/more_details"
+            app:layout_constraintStart_toStartOf="@+id/ingredients"
+            app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+
+        <TextView
+            android:id="@+id/ingredients_hide"
+            style="@style/BaseText.ButtonText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:text="@string/hide"
             app:layout_constraintStart_toStartOf="@+id/ingredients"
             app:layout_constraintTop_toBottomOf="@+id/ingredients" />
 

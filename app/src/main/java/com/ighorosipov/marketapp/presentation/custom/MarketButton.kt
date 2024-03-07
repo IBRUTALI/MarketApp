@@ -2,7 +2,6 @@ package com.ighorosipov.marketapp.presentation.custom
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -425,11 +424,6 @@ class MarketButton @JvmOverloads constructor(
         }
 
         setMeasuredDimension(width, height)
-    }
-
-    companion object {
-        private val DEF_STYLE_RES: Int = R.style.TrueMaterialButton
-        private val DEF_TEXT_COLOR: Int = Color.BLACK
     }
 
 }

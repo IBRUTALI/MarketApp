@@ -46,6 +46,7 @@
     <string name="ingredients">Состав</string>
     <string name="more_details">Подробнее</string>
     <string name="add_to_basket">Добавить в корзину</string>
+    <string name="hide">Скрыть</string>
     <!--  Account  -->
     <!--  Favorite  -->
 </resources>

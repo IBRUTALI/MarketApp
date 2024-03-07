@@ -2,6 +2,7 @@ package com.ighorosipov.marketapp.presentation.catalog
 
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller
@@ -63,7 +64,8 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         itemAdapter.setOnClickListener(object : ItemAdapter.OnClickListener {
 
             override fun onItemClick(position: Int, item: Item) {
-                findNavController().navigate(R.id.action_catalogFragment_to_productFragment)
+                val bundle = bundleOf(BUNDLE_ITEM_ID to item.id)
+                findNavController().navigate(R.id.action_catalogFragment_to_productFragment, bundle)
             }
 
             override fun onHeartClick(position: Int, item: Item) {
@@ -137,5 +139,9 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     override fun onPause() {
         super.onPause()
         binding.sortList.setText("", false)
+    }
+
+    companion object {
+        const val BUNDLE_ITEM_ID = "BUNDLE_ITEM_ID"
     }
 }
