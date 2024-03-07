@@ -4,14 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.ighorosipov.marketapp.data.mapper.ItemConverter
+import com.ighorosipov.marketapp.data.model.Item
 import com.ighorosipov.marketapp.data.model.db.FavoriteEntity
 import com.ighorosipov.marketapp.data.model.db.UserEntity
 
 @Database(
-    entities = [UserEntity::class, FavoriteEntity::class],
+    entities = [Item::class, UserEntity::class, FavoriteEntity::class],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(ItemConverter::class)
 abstract class MarketDatabase : RoomDatabase() {
 
     abstract val marketDao: MarketDao

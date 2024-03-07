@@ -5,11 +5,21 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.ighorosipov.marketapp.data.model.Item
 import com.ighorosipov.marketapp.data.model.db.FavoriteEntity
 import com.ighorosipov.marketapp.data.model.db.UserEntity
 
 @Dao
 interface MarketDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(item: Item)
+
+    @Query("SELECT * FROM items WHERE id = :itemId")
+    suspend fun findItemById(itemId: String): Item
+
+    @Query("SELECT * FROM items")
+    suspend fun getItems(): List<Item>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)

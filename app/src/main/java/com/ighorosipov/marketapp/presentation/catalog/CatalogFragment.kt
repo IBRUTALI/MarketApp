@@ -107,9 +107,9 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
                 }
 
                 is Result.Success -> {
-                    itemAdapter.setList(result.data?.items ?: emptyList())
-                    smoothScroller.targetPosition = itemAdapter.getFirstPosition()
+                    itemAdapter.setList(result.data ?: emptyList())
                     binding.items.post {
+                        smoothScroller.targetPosition = itemAdapter.getFirstPosition()
                         binding.items.layoutManager?.startSmoothScroll(smoothScroller)
                     }
                 }

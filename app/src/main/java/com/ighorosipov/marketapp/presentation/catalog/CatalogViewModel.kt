@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ighorosipov.marketapp.domain.model.Item
-import com.ighorosipov.marketapp.domain.model.Items
 import com.ighorosipov.marketapp.domain.model.db.Favorite
 import com.ighorosipov.marketapp.domain.repository.MarketRepository
-import com.ighorosipov.marketapp.domain.repository.ProductRepository
 import com.ighorosipov.marketapp.domain.utils.Result
 import com.ighorosipov.marketapp.utils.base.BaseViewModel
 import dagger.assisted.AssistedFactory
@@ -19,12 +17,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class CatalogViewModel @AssistedInject constructor(
-    private val productRepository: ProductRepository,
     private val marketRepository: MarketRepository,
 ) : BaseViewModel() {
 
-    private val _items = MutableLiveData<Result<Items>>()
-    val items: LiveData<Result<Items>> = _items
+    private val _items = MutableLiveData<Result<List<Item>>>()
+    val items: LiveData<Result<List<Item>>> = _items
 
     private var initialItems: List<Item> = emptyList()
 
@@ -48,9 +45,9 @@ class CatalogViewModel @AssistedInject constructor(
     private fun getItems() {
         viewModelScope.launch(Dispatchers.IO) {
             _items.postValue(Result.Loading())
-            val items = productRepository.getProducts()
+            val items = marketRepository.getItems()
             _items.postValue(items)
-            initialItems = items.data?.items ?: emptyList()
+            initialItems = items.data ?: emptyList()
         }
     }
 
@@ -88,32 +85,31 @@ class CatalogViewModel @AssistedInject constructor(
         _sortDirection.value = value
     }
 
-    fun sort(direction: Sort, filteredItemsByTag: List<Item>?=null) {
+    fun sort(direction: Sort, filteredItemsByTag: List<Item>? = null) {
         viewModelScope.launch(Dispatchers.Default) {
-            val items = filteredItemsByTag ?: items.value?.data?.items
+            val items = filteredItemsByTag ?: items.value?.data
             when (direction) {
                 is Sort.Popularity -> {
                     _items.postValue(
-                        Result.Success(Items(items?.sortedByDescending {
+                        Result.Success(items?.sortedByDescending {
                             it.feedback.rating
                         } ?: emptyList()))
-                    )
                 }
 
                 is Sort.PriceDescending -> {
                     _items.postValue(
-                        Result.Success(Items(items?.sortedByDescending {
+                        Result.Success(items?.sortedByDescending {
                             it.price.priceWithDiscount.toInt()
-                        } ?: emptyList()))
+                        } ?: emptyList())
                     )
 
                 }
 
                 is Sort.PriceAscending -> {
                     _items.postValue(
-                        Result.Success(Items(items?.sortedBy {
+                        Result.Success(items?.sortedBy {
                             it.price.priceWithDiscount.toInt()
-                        } ?: emptyList()))
+                        } ?: emptyList())
                     )
                 }
             }
