@@ -21,7 +21,7 @@ interface MarketRepository {
 
     suspend fun insertUserFavorite(favorite: Favorite)
 
-    suspend fun findFavoriteById(itemId: String): Favorite?
+    suspend fun getFavoriteById(itemId: String): Favorite?
 
     suspend fun deleteUserFavorite(itemId: String)
 

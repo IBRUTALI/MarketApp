@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.product.ProductFragment">
+    tools:context=".presentation.product.ProductFragment"
+    android:layout_marginBottom="@dimen/base_padding_top_medium">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -147,6 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:textColor="@color/text_black"
             android:text="@string/description"
             app:layout_constraintStart_toStartOf="@+id/price_with_discount"
             app:layout_constraintTop_toBottomOf="@+id/price_with_discount" />
@@ -213,8 +215,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="@+id/info_hc"
-            app:layout_constraintTop_toBottomOf="@+id/info_hc"/>
+            app:layout_constraintTop_toBottomOf="@+id/info_hc"
+            tools:listitem="@layout/item_info"/>
 
         <TextView
             android:id="@+id/ingredients_hc"
@@ -284,4 +288,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView >

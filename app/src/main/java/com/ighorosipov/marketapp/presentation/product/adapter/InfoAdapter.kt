@@ -8,7 +8,7 @@ import com.ighorosipov.marketapp.databinding.ItemInfoBinding
 import com.ighorosipov.marketapp.domain.model.Info
 
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.InfoViewHolder>() {
-    private var items = emptyList<Info>()
+    private var items = listOf<Info>()
 
 
     class InfoViewHolder(val binding: ItemInfoBinding) : RecyclerView.ViewHolder(binding.root)
@@ -20,7 +20,8 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.InfoViewHolder>() {
 
     override fun onBindViewHolder(holder: InfoViewHolder, position: Int) {
         with(holder.binding) {
-
+            title.text = items[position].title
+            subtitle.text = items[position].value
         }
     }
 

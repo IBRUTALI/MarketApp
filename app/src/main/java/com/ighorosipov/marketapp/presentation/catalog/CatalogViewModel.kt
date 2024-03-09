@@ -37,9 +37,9 @@ class CatalogViewModel @AssistedInject constructor(
     private var job: Job? = null
 
     init {
-        _sortDirection.value = Sort.Popularity()
         getItems()
         getFavorites()
+        _sortDirection.value = Sort.Default()
     }
 
     private fun getItems() {
@@ -56,7 +56,7 @@ class CatalogViewModel @AssistedInject constructor(
             val favorite = Favorite(
                 itemId = id
             )
-            if (marketRepository.findFavoriteById(id) == null) {
+            if (marketRepository.getFavoriteById(id) == null) {
                 _favorites.plusAssign(id)
                 marketRepository.insertUserFavorite(
                     favorite
@@ -75,9 +75,17 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
-    private fun getFavorites() {
+     private fun getFavorites() {
         viewModelScope.launch {
             _favorites.postValue(marketRepository.getUserFavorites())
+        }
+    }
+
+    fun setFavorite(itemId: String, isFavorite: Boolean) {
+        if (isFavorite) {
+            _favorites.plusAssign(itemId)
+        } else {
+            _favorites.postValue(favorites.value?.remove(itemId))
         }
     }
 
@@ -112,6 +120,8 @@ class CatalogViewModel @AssistedInject constructor(
                         } ?: emptyList())
                     )
                 }
+
+                is Sort.Default -> {}
             }
         }
     }
