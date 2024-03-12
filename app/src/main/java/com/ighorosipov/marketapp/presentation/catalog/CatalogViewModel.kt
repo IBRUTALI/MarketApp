@@ -34,6 +34,9 @@ class CatalogViewModel @AssistedInject constructor(
     private val _sortDirection = MutableLiveData<Sort>()
     val sortDirection: LiveData<Sort> = _sortDirection
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
+
     private var job: Job? = null
 
     init {
@@ -75,17 +78,20 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
-     private fun getFavorites() {
+    private fun getFavorites() {
         viewModelScope.launch {
             _favorites.postValue(marketRepository.getUserFavorites())
         }
     }
 
-    fun setFavorite(itemId: String, isFavorite: Boolean) {
+    fun updateFavorites(itemId: String, isFavorite: Boolean) {
+        val isContainsInList = favorites.value?.contains(itemId) == true
         if (isFavorite) {
-            _favorites.plusAssign(itemId)
+            if (!isContainsInList)
+                _favorites.plusAssign(itemId)
         } else {
-            _favorites.postValue(favorites.value?.remove(itemId))
+            if (isContainsInList)
+                _favorites.postValue(favorites.value?.remove(itemId))
         }
     }
 
@@ -121,7 +127,10 @@ class CatalogViewModel @AssistedInject constructor(
                     )
                 }
 
-                is Sort.Default -> {}
+                is Sort.Default -> {
+                    _items.postValue(
+                        Result.Success(items ?: emptyList()))
+                }
             }
         }
     }
@@ -158,7 +167,12 @@ class CatalogViewModel @AssistedInject constructor(
 
             }
         }
+    }
 
+    fun isFavoriteById(itemId: String) {
+       viewModelScope.launch(Dispatchers.IO) {
+           _isFavorite.postValue(marketRepository.getFavoriteById(itemId) != null)
+       }
     }
 
     @AssistedFactory

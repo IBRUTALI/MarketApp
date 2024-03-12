@@ -90,7 +90,6 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     interface OnClickListener {
         fun onItemClick(position: Int, item: Item)
         fun onHeartClick(position: Int, item: Item)
-
     }
 
     fun setList(newList: List<Item>) {

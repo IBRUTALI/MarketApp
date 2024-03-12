@@ -24,6 +24,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     private val itemAdapter by lazy { ItemAdapter() }
     private lateinit var sortAdapter: ArrayAdapter<String>
     private lateinit var smoothScroller: SmoothScroller
+    private var itemId: String? = null
     override val viewModel: CatalogViewModel by lazyViewModel {
         requireContext().appComponent().catalogViewModel().create()
     }
@@ -64,7 +65,10 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         itemAdapter.setOnClickListener(object : ItemAdapter.OnClickListener {
 
             override fun onItemClick(position: Int, item: Item) {
-                val bundle = bundleOf(BUNDLE_ITEM_ID to item.id)
+                val bundle = bundleOf(
+                    BUNDLE_ITEM_ID to item.id,
+                    BUNDLE_ITEM_POSITION to position
+                )
                 findNavController().navigate(R.id.action_catalogFragment_to_productFragment, bundle)
             }
 
@@ -121,7 +125,12 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         }
 
         viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
+            val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)
             itemAdapter.setFavorites(favorites)
+            if(itemPosition?.value != null) {
+                itemAdapter.checkFavorites(position = itemPosition.value!!)
+                findNavController().clearBackStack(R.id.catalog)
+            }
         }
 
         viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
@@ -134,17 +143,18 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             tagAdapter.updateTag(tag)
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(BUNDLE_ITEM_ID)
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            if (itemId != null) {
+                viewModel.updateFavorites(itemId as String, isFavorite)
+            }
+        }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
+            BUNDLE_ITEM_ID
+        )
             ?.observe(viewLifecycleOwner) { itemId ->
-                val isFavorite =
-                    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(
-                        BUNDLE_ITEM_IS_FAVORITE
-                    )
-                val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(
-                    BUNDLE_ITEM_POSITION
-                )
-                viewModel.setFavorite(itemId, isFavorite?.value ?: false)
-                itemPosition?.value?.let { position -> itemAdapter.checkFavorites(position) }
+                this.itemId = itemId
+                viewModel.isFavoriteById(itemId)
             }
 
     }
@@ -156,7 +166,6 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
     companion object {
         const val BUNDLE_ITEM_ID = "BUNDLE_ITEM_ID"
-        const val BUNDLE_ITEM_IS_FAVORITE = "BUNDLE_ITEM_IS_FAVORITE"
         const val BUNDLE_ITEM_POSITION = "BUNDLE_ITEM_POSITION"
     }
 }

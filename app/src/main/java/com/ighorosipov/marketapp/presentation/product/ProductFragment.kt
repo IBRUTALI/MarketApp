@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.models.SlideModel
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.FragmentProductBinding
-import com.ighorosipov.marketapp.presentation.catalog.CatalogFragment
 import com.ighorosipov.marketapp.presentation.catalog.CatalogFragment.Companion.BUNDLE_ITEM_ID
 import com.ighorosipov.marketapp.presentation.catalog.CatalogFragment.Companion.BUNDLE_ITEM_POSITION
 import com.ighorosipov.marketapp.presentation.catalog.adapter.ItemAdapter.Companion.mapOfImages
@@ -79,8 +78,9 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
 
     private fun getBundle(): String? {
         val itemId = arguments?.getString(BUNDLE_ITEM_ID)
+        val itemPosition= arguments?.getInt(BUNDLE_ITEM_POSITION)
         findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_ID, itemId)
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_POSITION, itemId)
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_POSITION, itemPosition)
         return itemId
     }
 
@@ -142,7 +142,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
             } else {
                 binding.heart.setImageResource(R.drawable.ic_heart_empty)
             }
-            findNavController().previousBackStackEntry?.savedStateHandle?.set(CatalogFragment.BUNDLE_ITEM_IS_FAVORITE, it)
         }
     }
 
