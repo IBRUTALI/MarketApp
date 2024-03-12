@@ -47,6 +47,12 @@
     <string name="more_details">Подробнее</string>
     <string name="add_to_basket">Добавить в корзину</string>
     <string name="hide">Скрыть</string>
+    <string name="markets">Магазины</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="offer">Оферта</string>
+    <string name="purchase_returns">Возврат товара</string>
+    <string name="exit">Выйти</string>
+    <string name="personal_area">Личный кабинет</string>
     <!--  Account  -->
     <!--  Favorite  -->
 </resources>

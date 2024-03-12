@@ -191,4 +191,36 @@
         <item name="android:background">@drawable/ripple_button_secondary</item>
     </style>
 
+    <style name="TrueMaterialButton.Secondary.Center">
+        <item name="textLayoutOrientation">vertical</item>
+        <item name="titleTextAppearance">@style/BaseText.Title2</item>
+        <item name="titleGravity">center</item>
+        <item name="subtitleTextAppearance">@style/BaseText.Caption1</item>
+        <item name="android:colorControlHighlight">@color/bg_light_grey</item>
+        <item name="android:background">@drawable/ripple_button_secondary</item>
+    </style>
+
+    <style name="TrueMaterialButton.TwoIcon">
+        <item name="textLayoutOrientation">vertical</item>
+        <item name="titleTextAppearance">@style/BaseText.Title2</item>
+        <item name="subtitleTextAppearance">@style/BaseText.Caption1</item>
+        <item name="android:colorControlHighlight">@color/bg_light_grey</item>
+        <item name="android:background">@drawable/ripple_button_secondary</item>
+    </style>
+
+    <style name="TrueMaterialButton.TwoIcon.OneTitle">
+        <item name="textLayoutOrientation">vertical</item>
+        <item name="titleTextAppearance">@style/BaseText.Title2</item>
+        <item name="android:colorControlHighlight">@color/bg_light_grey</item>
+        <item name="android:background">@drawable/ripple_button_secondary</item>
+    </style>
+
+    <style name="TrueMaterialButton.TwoIcon.TwoTitle">
+        <item name="textLayoutOrientation">vertical</item>
+        <item name="titleTextAppearance">@style/BaseText.Title2</item>
+        <item name="subtitleTextAppearance">@style/BaseText.Caption1</item>
+        <item name="android:colorControlHighlight">@color/bg_light_grey</item>
+        <item name="android:background">@drawable/ripple_button_secondary</item>
+    </style>
+
 </resources>

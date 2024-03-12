@@ -2,6 +2,8 @@
 <resources>
     <dimen name="base_corner_radius">8dp</dimen>
     <dimen name="base_padding_small">8dp</dimen>
+    <dimen name="base_padding_normal">12dp</dimen>
+    <dimen name="base_padding_medium">18dp</dimen>
     <dimen name="base_padding_large">40dp</dimen>
     <dimen name="base_padding_big">32dp</dimen>
     <dimen name="base_padding_ultralarge">60dp</dimen>

@@ -1,13 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.account.AccountFragment">
+    tools:context=".presentation.account.AccountFragment"
+    android:orientation="vertical"
+    android:paddingVertical="@dimen/base_padding_normal"
+    android:paddingHorizontal="@dimen/base_padding_medium">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
-</FrameLayout>
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_user"
+            style="@style/TrueMaterialButton.TwoIcon.TwoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            app:leftIcon="@drawable/ic_account"
+            app:leftIconSize="32dp"
+            app:rightIcon="@drawable/ic_exit"
+            app:rightIconSize="32dp"
+            app:subtitle="@string/subtitle"
+            app:title="@string/title" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_favorites"
+            style="@style/TrueMaterialButton.TwoIcon.TwoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_big"
+            app:title="@string/favorite"
+            app:subtitle="@string/subtitle"
+            app:leftIcon="@drawable/ic_heart_empty"
+            app:rightIcon="@drawable/ic_arrow_right"
+            app:leftIconSize="32dp"
+            app:rightIconSize="32dp" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_markets"
+            style="@style/TrueMaterialButton.TwoIcon.OneTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            app:title="@string/markets"
+            app:leftIcon="@drawable/ic_market"
+            app:rightIcon="@drawable/ic_arrow_right"
+            app:leftIconSize="32dp"
+            app:rightIconSize="32dp" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_feedback"
+            style="@style/TrueMaterialButton.TwoIcon.OneTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            app:title="@string/feedback"
+            app:leftIcon="@drawable/ic_feedback"
+            app:rightIcon="@drawable/ic_arrow_right"
+            app:leftIconSize="32dp"
+            app:rightIconSize="32dp" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_offer"
+            style="@style/TrueMaterialButton.TwoIcon.OneTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            app:title="@string/offer"
+            app:leftIcon="@drawable/ic_offer"
+            app:rightIcon="@drawable/ic_arrow_right"
+            app:leftIconSize="32dp"
+            app:rightIconSize="32dp" />
+
+        <com.ighorosipov.marketapp.presentation.custom.MarketButton
+            android:id="@+id/button_purchase_returns"
+            style="@style/TrueMaterialButton.TwoIcon.OneTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_padding_top_medium"
+            app:title="@string/purchase_returns"
+            app:leftIcon="@drawable/ic_return"
+            app:rightIcon="@drawable/ic_arrow_right"
+            app:leftIconSize="32dp"
+            app:rightIconSize="32dp" />
+
+    </LinearLayout>
+
+    <com.ighorosipov.marketapp.presentation.custom.MarketButton
+        android:id="@+id/button_exit"
+        style="@style/TrueMaterialButton.Secondary.Center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_padding_top_medium"
+        app:title="@string/exit" />
+
+</LinearLayout>
