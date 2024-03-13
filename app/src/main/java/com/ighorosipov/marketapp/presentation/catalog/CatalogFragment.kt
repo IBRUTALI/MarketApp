@@ -115,6 +115,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
                     binding.items.post {
                         smoothScroller.targetPosition = itemAdapter.getFirstPosition()
                         binding.items.layoutManager?.startSmoothScroll(smoothScroller)
+
                     }
                 }
 
@@ -123,6 +124,8 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
                 }
             }
         }
+
+        fun foo() = Unit
 
         viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)

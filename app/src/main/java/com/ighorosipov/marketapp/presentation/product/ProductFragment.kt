@@ -1,8 +1,10 @@
 package com.ighorosipov.marketapp.presentation.product
 
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -45,19 +47,19 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
 
         }
         binding.descriptionHide.setOnClickListener {
-
+            viewModel.changeDescriptionState()
         }
         binding.descriptionDetails.setOnClickListener {
-
+            viewModel.changeDescriptionState()
         }
         binding.ingredientsCopy.setOnClickListener {
 
         }
         binding.ingredientsHide.setOnClickListener {
-
+            viewModel.changeIngredientState()
         }
         binding.ingredientsDetails.setOnClickListener {
-
+            viewModel.changeIngredientState()
         }
         binding.buttonAdd.setOnClickListener {
 
@@ -110,14 +112,23 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
                 itemImage.setImageList(imageList)
                 title.text = item.title
                 subtitle.text = item.subtitle
-                "${ContextCompat.getString(requireContext(), R.string.available)} ${item.available}".apply {
+                val availableText = requireContext().resources.getQuantityString(R.plurals.available_plurals, item.available)
+                "${ContextCompat.getString(requireContext(), R.string.available)} ${item.available} $availableText".apply {
                     available.text = this
                 }
-                ratingBar.rating = item.feedback.rating.toFloat()
-                reviews.text = item.feedback.rating.toString()
-                "${item.feedback.count}".apply {
-                    reviewsCount.text = this
+
+                if (item.feedback == null) {
+                    feedbackGroup.visibility = View.GONE
+                } else {
+                    feedbackGroup.visibility = View.VISIBLE
+                    ratingBar.rating = item.feedback.rating.toFloat()
+                    reviews.text = item.feedback.rating.toString()
+                    val feedbackText = requireContext().resources.getQuantityString(R.plurals.feedback_plurals, item.feedback.count)
+                    "${item.feedback.count} $feedbackText".apply {
+                        reviewsCount.text = this
+                    }
                 }
+
                 "${item.price.priceWithDiscount} ${item.price.unit}".apply {
                     priceWithDiscount.text = this
                 }
@@ -141,6 +152,43 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
                 binding.heart.setImageResource(R.drawable.ic_heart_fill)
             } else {
                 binding.heart.setImageResource(R.drawable.ic_heart_empty)
+            }
+        }
+        viewModel.descriptionState.observe(viewLifecycleOwner) { state ->
+           when(state) {
+               is VisibilityState.VISIBLE -> {
+                   binding.apply {
+                       descriptionDetails.visibility = View.GONE
+                       descriptionHide.visibility = View.VISIBLE
+                       description.visibility = View.VISIBLE
+                   }
+               }
+               is VisibilityState.GONE -> {
+                   binding.apply {
+                       descriptionDetails.visibility = View.VISIBLE
+                       descriptionHide.visibility = View.GONE
+                       description.visibility = View.GONE
+                   }
+               }
+           }
+        }
+        viewModel.ingredientState.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is VisibilityState.VISIBLE -> {
+                    binding.apply {
+                        ingredientsDetails.visibility = View.VISIBLE
+                        ingredientsHide.visibility = View.GONE
+                        ingredients.maxLines = 2
+                        ingredients.ellipsize = TextUtils.TruncateAt.END
+                    }
+                }
+                is VisibilityState.GONE -> {
+                    binding.apply {
+                        ingredientsDetails.visibility = View.GONE
+                        ingredientsHide.visibility = View.VISIBLE
+                        ingredients.maxLines = 100
+                    }
+                }
             }
         }
     }

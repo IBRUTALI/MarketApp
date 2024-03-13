@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp">
+        android:layout_marginHorizontal="@dimen/base_padding_top_medium">
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/itemImage"
@@ -30,24 +30,26 @@
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="@+id/itemImage"
             app:layout_constraintTop_toTopOf="@+id/itemImage"
-            app:srcCompat="@drawable/ic_heart_empty" />
+            app:srcCompat="@drawable/ic_heart_empty"
+            android:contentDescription="@string/heart" />
 
         <ImageView
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="@dimen/base_padding_small"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@+id/itemImage"
             app:layout_constraintStart_toStartOf="@+id/itemImage"
-            app:srcCompat="@drawable/ic_question" />
+            app:srcCompat="@drawable/ic_question"
+            android:contentDescription="@string/question" />
 
         <TextView
             android:id="@+id/title"
             style="@style/BaseText.Title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:text="@string/title"
             app:layout_constraintStart_toStartOf="@+id/itemImage"
             app:layout_constraintTop_toBottomOf="@+id/itemImage" />
@@ -57,7 +59,7 @@
             style="@style/BaseText.LargeTitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:text="@string/subtitle"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -67,44 +69,72 @@
             style="@style/BaseText.Text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:text="@string/available"
             app:layout_constraintStart_toStartOf="@+id/subtitle"
             app:layout_constraintTop_toBottomOf="@+id/subtitle" />
+
+        <View
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/base_padding_small"
+            android:background="@drawable/bg_button_on"
+            android:backgroundTint="@color/bg_light_grey"
+            app:layout_constraintStart_toStartOf="@+id/available"
+            app:layout_constraintTop_toBottomOf="@+id/available"/>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/feedback_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="rating_bar, reviews, dot, reviews_count"
+            android:visibility="visible"/>
 
         <RatingBar
             android:id="@+id/rating_bar"
             style="@style/CustomRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:numStars="5"
             android:rating="4.3"
             android:stepSize="0.5"
-            app:layout_constraintStart_toStartOf="@+id/available"
-            app:layout_constraintTop_toBottomOf="@+id/available" />
+            android:paddingTop="4dp"
+            app:layout_constraintStart_toStartOf="@+id/space"
+            app:layout_constraintTop_toBottomOf="@+id/space" />
 
         <TextView
             android:id="@+id/reviews"
             style="@style/BaseText.Text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="@dimen/base_padding_small"
             android:text="@string/rating_count"
             app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
             app:layout_constraintStart_toEndOf="@+id/rating_bar"
             app:layout_constraintTop_toTopOf="@+id/rating_bar" />
+
+        <ImageView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding_small"
+            android:src="@drawable/ic_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/reviews"
+            app:layout_constraintStart_toEndOf="@+id/reviews"
+            app:layout_constraintTop_toTopOf="@+id/reviews"
+            android:contentDescription="@string/dot" />
 
         <TextView
             android:id="@+id/reviews_count"
             style="@style/BaseText.Text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:text="@string/reviews_count_text"
-            app:layout_constraintBottom_toBottomOf="@+id/reviews"
-            app:layout_constraintStart_toEndOf="@+id/reviews"
-            app:layout_constraintTop_toTopOf="@+id/reviews" />
+            app:layout_constraintBottom_toBottomOf="@+id/dot"
+            app:layout_constraintStart_toEndOf="@+id/dot"
+            app:layout_constraintTop_toTopOf="@+id/dot" />
 
         <TextView
             android:id="@+id/price_with_discount"
@@ -112,7 +142,7 @@
             android:textSize="24sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:text="@string/price_with_discount"
             app:layout_constraintStart_toStartOf="@+id/rating_bar"
             app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
@@ -122,7 +152,7 @@
             style="@style/BaseText.Text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/base_padding_small"
             android:text="@string/price"
             app:layout_constraintBottom_toBottomOf="@+id/price_with_discount"
             app:layout_constraintStart_toEndOf="@+id/price_with_discount"
@@ -133,10 +163,10 @@
             style="@style/BaseText.ElementalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/base_padding_small"
             android:background="@drawable/bg_button_on"
             android:paddingVertical="3dp"
-            android:paddingHorizontal="7dp"
+            android:paddingHorizontal="@dimen/base_padding_small"
             android:text="@string/discount_percent"
             app:layout_constraintBottom_toBottomOf="@+id/price"
             app:layout_constraintStart_toEndOf="@+id/price"
@@ -147,7 +177,7 @@
             style="@style/BaseText.Title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:textColor="@color/text_black"
             android:text="@string/description"
             app:layout_constraintStart_toStartOf="@+id/price_with_discount"
@@ -172,32 +202,36 @@
             style="@style/BaseText.Text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:text="@string/description"
             android:textColor="@color/text_black"
             app:layout_constraintStart_toStartOf="@+id/button_brand"
             app:layout_constraintTop_toBottomOf="@+id/button_brand" />
 
-        <TextView
-            android:id="@+id/description_hide"
-            style="@style/BaseText.ButtonText1"
+        <FrameLayout
+            android:id="@+id/description_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="@string/hide"
+            android:layout_marginTop="@dimen/base_padding_small"
             app:layout_constraintStart_toStartOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintTop_toBottomOf="@+id/description">
 
-        <TextView
-            android:id="@+id/description_details"
-            style="@style/BaseText.ButtonText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:visibility="gone"
-            android:text="@string/more_details"
-            app:layout_constraintStart_toStartOf="@+id/description"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            <TextView
+                android:id="@+id/description_hide"
+                style="@style/BaseText.ButtonText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hide" />
+
+            <TextView
+                android:id="@+id/description_details"
+                style="@style/BaseText.ButtonText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/more_details" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/info_hc"
@@ -207,14 +241,14 @@
             android:layout_marginTop="30dp"
             android:textColor="@color/text_black"
             android:text="@string/info"
-            app:layout_constraintStart_toStartOf="@+id/description_hide"
-            app:layout_constraintTop_toBottomOf="@+id/description_hide" />
+            app:layout_constraintStart_toStartOf="@+id/description_layout"
+            app:layout_constraintTop_toBottomOf="@+id/description_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:nestedScrollingEnabled="false"
             app:layout_constraintStart_toStartOf="@+id/info_hc"
             app:layout_constraintTop_toBottomOf="@+id/info_hc"
@@ -239,39 +273,44 @@
             android:src="@drawable/ic_copy"
             app:layout_constraintBottom_toBottomOf="@+id/ingredients_hc"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ingredients_hc" />
+            app:layout_constraintTop_toTopOf="@+id/ingredients_hc"
+            android:contentDescription="@string/copy" />
 
         <TextView
             android:id="@+id/ingredients"
             style="@style/BaseText.Text1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/base_padding_small"
             android:textColor="@color/text_black"
             android:text="@string/ingredients"
             app:layout_constraintStart_toStartOf="@+id/ingredients_hc"
             app:layout_constraintTop_toBottomOf="@+id/ingredients_hc" />
 
-        <TextView
-            android:id="@+id/ingredients_details"
-            style="@style/BaseText.ButtonText1"
+        <FrameLayout
+            android:id="@+id/ingredients_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/more_details"
+            android:layout_marginTop="@dimen/base_padding_small"
             app:layout_constraintStart_toStartOf="@+id/ingredients"
-            app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+            app:layout_constraintTop_toBottomOf="@+id/ingredients">
 
-        <TextView
-            android:id="@+id/ingredients_hide"
-            style="@style/BaseText.ButtonText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:visibility="gone"
-            android:text="@string/hide"
-            app:layout_constraintStart_toStartOf="@+id/ingredients"
-            app:layout_constraintTop_toBottomOf="@+id/ingredients" />
+            <TextView
+                android:id="@+id/ingredients_details"
+                style="@style/BaseText.ButtonText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/more_details" />
+
+            <TextView
+                android:id="@+id/ingredients_hide"
+                style="@style/BaseText.ButtonText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/hide" />
+
+        </FrameLayout>
 
         <com.ighorosipov.marketapp.presentation.custom.MarketButton
             android:id="@+id/button_add"
@@ -282,9 +321,9 @@
             app:title="@string/price"
             app:subtitle="@string/add_to_basket"
             app:titleStrike="@string/price_with_discount"
-            app:layout_constraintEnd_toEndOf="@+id/ingredients_details"
-            app:layout_constraintStart_toStartOf="@+id/ingredients_details"
-            app:layout_constraintTop_toBottomOf="@+id/ingredients_details" />
+            app:layout_constraintEnd_toEndOf="@+id/ingredients_layout"
+            app:layout_constraintStart_toStartOf="@+id/ingredients_layout"
+            app:layout_constraintTop_toBottomOf="@+id/ingredients_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

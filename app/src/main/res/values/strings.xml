@@ -40,6 +40,14 @@
     <string name="subtitle">Подзаголовок</string>
     <!--  Product  -->
     <string name="available">Доступно для заказа</string>
+    <plurals name="available_plurals">
+        <item quantity="zero">штук</item>
+        <item quantity="one">штука</item>
+        <item quantity="two">штуки</item>
+        <item quantity="few">штуки</item>
+        <item quantity="many">штук</item>
+        <item quantity="other">штук</item>
+    </plurals>
     <string name="reviews_count_text">0 отзывов</string>
     <string name="description">Описание</string>
     <string name="info">Характеристики</string>
@@ -47,12 +55,25 @@
     <string name="more_details">Подробнее</string>
     <string name="add_to_basket">Добавить в корзину</string>
     <string name="hide">Скрыть</string>
-    <string name="markets">Магазины</string>
-    <string name="feedback">Обратная связь</string>
+    <plurals name="feedback_plurals">
+        <item quantity="zero">отзыв</item>
+        <item quantity="one">отзыв</item>
+        <item quantity="two">отзыва</item>
+        <item quantity="few">отзыва</item>
+        <item quantity="many">отзывов</item>
+        <item quantity="other">отзывов</item>
+    </plurals>
+    <string name="dot">dot</string>
+    <string name="question">question</string>
+    <string name="heart">heart</string>
+    <string name="copy">copy</string>
+    <!--  Account  -->
     <string name="offer">Оферта</string>
     <string name="purchase_returns">Возврат товара</string>
     <string name="exit">Выйти</string>
-    <string name="personal_area">Личный кабинет</string>
-    <!--  Account  -->
+    <string name="personal_account">Личный кабинет</string>
+    <string name="markets">Магазины</string>
+    <string name="feedback">Обратная связь</string>
     <!--  Favorite  -->
+
 </resources>

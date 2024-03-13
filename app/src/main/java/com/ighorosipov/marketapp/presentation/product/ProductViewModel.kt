@@ -25,6 +25,12 @@ class ProductViewModel @AssistedInject constructor(
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> = _isFavorite
 
+    private val _descriptionState = MutableLiveData<VisibilityState>(VisibilityState.VISIBLE)
+    val descriptionState: LiveData<VisibilityState> = _descriptionState
+
+    private val _ingredientState = MutableLiveData<VisibilityState>(VisibilityState.GONE)
+    val ingredientState: LiveData<VisibilityState> = _ingredientState
+
 init {
     getItemById(itemId)
     isItemInFavorites(itemId)
@@ -64,6 +70,28 @@ init {
                     }
                     repository.deleteUserFavorite(itemId)
                 }
+            }
+        }
+    }
+
+    fun changeDescriptionState() {
+        when(descriptionState.value!!) {
+            is VisibilityState.VISIBLE -> {
+                _descriptionState.value = VisibilityState.GONE
+            }
+            is VisibilityState.GONE -> {
+                _descriptionState.value = VisibilityState.VISIBLE
+            }
+        }
+    }
+
+    fun changeIngredientState() {
+        when(ingredientState.value!!) {
+            is VisibilityState.VISIBLE -> {
+                _ingredientState.value = VisibilityState.GONE
+            }
+            is VisibilityState.GONE -> {
+                _ingredientState.value = VisibilityState.VISIBLE
             }
         }
     }
