@@ -125,8 +125,6 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             }
         }
 
-        fun foo() = Unit
-
         viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
             val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)
             itemAdapter.setFavorites(favorites)

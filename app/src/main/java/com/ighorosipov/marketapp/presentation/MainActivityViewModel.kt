@@ -17,6 +17,10 @@ class MainActivityViewModel @AssistedInject constructor(
     val isSignIn: LiveData<Boolean> = _isSignIn
 
     init {
+        isSignIn()
+    }
+
+    private fun isSignIn() {
         viewModelScope.launch {
             _isSignIn.value = marketRepository.isUserSignIn()
         }

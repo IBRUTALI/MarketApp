@@ -46,6 +46,10 @@ class MarketRepositoryImpl @Inject constructor(
         dao.insertUser(UserMapper().mapUserToUserEntity(user))
     }
 
+    override suspend fun getUser(): User? {
+        return dao.getUser()?.let { UserMapper().mapUserEntityToUser(it) }
+    }
+
     override suspend fun deleteUser(user: User) {
         dao.deleteUser(UserMapper().mapUserToUserEntity(user))
     }

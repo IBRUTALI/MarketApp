@@ -25,9 +25,7 @@ class TabsFragment : BaseFragment<FragmentTabsBinding, TabsViewModel>(
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
     }
 
-    override fun subscribeToObservers() {
-
-    }
+    override fun subscribeToObservers() {}
 
 
 }

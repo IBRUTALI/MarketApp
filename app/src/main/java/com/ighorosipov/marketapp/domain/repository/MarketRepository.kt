@@ -15,6 +15,8 @@ interface MarketRepository {
 
     suspend fun insertUser(user: User)
 
+    suspend fun getUser(): User?
+
     suspend fun deleteUser(user: User)
 
     suspend fun isUserSignIn(): Boolean

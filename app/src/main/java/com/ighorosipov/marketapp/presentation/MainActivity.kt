@@ -2,7 +2,6 @@ package com.ighorosipov.marketapp.presentation
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -10,15 +9,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.appbar.MaterialToolbar
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.ActivityMainBinding
 import com.ighorosipov.marketapp.presentation.tabs.TabsFragment
+import com.ighorosipov.marketapp.utils.base.setTitle
 import com.ighorosipov.marketapp.utils.di.appComponent
 import com.ighorosipov.marketapp.utils.di.lazyViewModel
-import java.util.regex.Pattern
 
-class MainActivity: AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var mBinding: ActivityMainBinding? = null
     private val binding get() = mBinding!!
@@ -34,7 +32,7 @@ class MainActivity: AppCompatActivity() {
             fm: FragmentManager,
             f: Fragment,
             v: View,
-            savedInstanceState: Bundle?
+            savedInstanceState: Bundle?,
         ) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
             if (f is TabsFragment || f is NavHostFragment) return
@@ -42,10 +40,11 @@ class MainActivity: AppCompatActivity() {
         }
     }
 
-    private val destinationListener = NavController.OnDestinationChangedListener { _, destination, arguments ->
-        binding.toolbar.setTitle(destination.label, binding.toolbarTextView, arguments)
-        supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
-    }
+    private val destinationListener =
+        NavController.OnDestinationChangedListener { _, destination, arguments ->
+            binding.toolbar.setTitle(destination.label, binding.toolbarTextView, arguments)
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +58,6 @@ class MainActivity: AppCompatActivity() {
             setSupportActionBar(this)
         }
         onCustomToolbarBackPress()
-
-
     }
 
     fun inject() {
@@ -102,12 +99,11 @@ class MainActivity: AppCompatActivity() {
                 getSignInDestination()
             }
         )
-        navController.graph = graph
     }
 
     private fun onCustomToolbarBackPress() {
         binding.toolbar.setNavigationOnClickListener {
-                navController?.popBackStack()
+            navController?.popBackStack()
         }
     }
 
@@ -124,24 +120,4 @@ class MainActivity: AppCompatActivity() {
         mBinding = null
     }
 
-}
-
-fun MaterialToolbar.setTitle(label: CharSequence?, textView: TextView, arguments: Bundle?) {
-    if (label != null) {
-        val title = StringBuffer()
-        val fillInPattern = Pattern.compile("\\{(.+?)\\}")
-        val matcher = fillInPattern.matcher(label)
-        while (matcher.find()) {
-            val argName = matcher.group(1)
-            if (arguments != null && arguments.containsKey(argName)) {
-                matcher.appendReplacement(title, "")
-                title.append(arguments.get(argName).toString())
-            } else {
-                return
-            }
-        }
-        matcher.appendTail(title)
-        setTitle("")
-        textView.text = title
-    }
 }
