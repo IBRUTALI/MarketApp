@@ -10,5 +10,6 @@ data class Item(
     val price: Price,
     val subtitle: String,
     val tags: List<String>,
-    val title: String
+    val title: String,
+    val isFavorite: Boolean
 )

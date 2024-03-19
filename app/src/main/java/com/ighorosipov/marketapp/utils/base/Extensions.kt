@@ -3,6 +3,7 @@ package com.ighorosipov.marketapp.utils.base
 import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -33,4 +34,15 @@ fun MaterialToolbar.setTitle(label: CharSequence?, textView: TextView, arguments
         setTitle("")
         textView.text = title
     }
+}
+
+operator fun <T> MutableLiveData<List<T>>.plusAssign(item: T) {
+    val value = this.value ?: emptyList()
+    this.postValue(value + listOf(item))
+}
+
+fun List<String>.remove(string: String): List<String> {
+    val result = this.toMutableList()
+    result.remove(string)
+    return result
 }

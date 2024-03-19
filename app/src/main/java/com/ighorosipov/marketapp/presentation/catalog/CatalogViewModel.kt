@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ighorosipov.marketapp.domain.model.Item
-import com.ighorosipov.marketapp.domain.model.db.Favorite
 import com.ighorosipov.marketapp.domain.repository.MarketRepository
 import com.ighorosipov.marketapp.domain.utils.Result
 import com.ighorosipov.marketapp.utils.base.BaseViewModel
@@ -14,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CatalogViewModel @AssistedInject constructor(
     private val marketRepository: MarketRepository,
@@ -24,9 +22,6 @@ class CatalogViewModel @AssistedInject constructor(
     val items: LiveData<Result<List<Item>>> = _items
 
     private var initialItems: List<Item> = emptyList()
-
-    private val _favorites = MutableLiveData<List<String>>(emptyList())
-    val favorites: LiveData<List<String>> = _favorites
 
     private val _tag = MutableLiveData<Tag>()
     val tag: LiveData<Tag> = _tag
@@ -41,7 +36,6 @@ class CatalogViewModel @AssistedInject constructor(
 
     init {
         getItems()
-        getFavorites()
         _sortDirection.value = Sort.Default()
     }
 
@@ -54,46 +48,40 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
-    fun toggleFavorite(id: String, function: () -> Unit) {
+    fun toggleFavorite(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
-            val favorite = Favorite(
-                itemId = id
+            marketRepository.updateItem(item.copy(isFavorite = !item.isFavorite))
+            _items.postValue(
+                Result.Success(items.value?.data?.map {
+                    if (it == item) {
+                        it.copy(isFavorite = !item.isFavorite)
+                    } else it
+                } ?: emptyList())
             )
-            if (marketRepository.getFavoriteById(id) == null) {
-                _favorites.plusAssign(id)
-                marketRepository.insertUserFavorite(
-                    favorite
-                )
-                withContext(Dispatchers.Main) {
-                    function.invoke()
-                }
-            } else {
-                withContext(Dispatchers.Main) {
-                    _favorites.postValue(favorites.value?.remove(id))
-                    function.invoke()
-                }
-                marketRepository.deleteUserFavorite(id)
+            initialItems = initialItems.map {
+                if (it == item) {
+                    it.copy(isFavorite = !item.isFavorite)
+                } else it
             }
-
         }
     }
 
-    private fun getFavorites() {
-        viewModelScope.launch {
-            _favorites.postValue(marketRepository.getUserFavorites())
-        }
-    }
-
-    fun updateFavorites(itemId: String, isFavorite: Boolean) {
-        val isContainsInList = favorites.value?.contains(itemId) == true
-        if (isFavorite) {
-            if (!isContainsInList)
-                _favorites.plusAssign(itemId)
-        } else {
-            if (isContainsInList)
-                _favorites.postValue(favorites.value?.remove(itemId))
-        }
-    }
+//    private fun getFavorites() {
+//        viewModelScope.launch {
+//            _favorites.postValue(marketRepository.getUserFavoritesId())
+//        }
+//    }
+//
+//    fun updateFavorites(itemId: String, isFavorite: Boolean) {
+//        val isContainsInList = favorites.value?.contains(itemId) == true
+//        if (isFavorite) {
+//            if (!isContainsInList)
+//                _favorites.plusAssign(itemId)
+//        } else {
+//            if (isContainsInList)
+//                _favorites.postValue(favorites.value?.remove(itemId))
+//        }
+//    }
 
     fun changeSortDirection(value: Sort) {
         _sortDirection.value = value
@@ -129,7 +117,8 @@ class CatalogViewModel @AssistedInject constructor(
 
                 is Sort.Default -> {
                     _items.postValue(
-                        Result.Success(items ?: emptyList()))
+                        Result.Success(items ?: emptyList())
+                    )
                 }
             }
         }
@@ -170,9 +159,9 @@ class CatalogViewModel @AssistedInject constructor(
     }
 
     fun isFavoriteById(itemId: String) {
-       viewModelScope.launch(Dispatchers.IO) {
-           _isFavorite.postValue(marketRepository.getFavoriteById(itemId) != null)
-       }
+        viewModelScope.launch(Dispatchers.IO) {
+            _isFavorite.postValue(marketRepository.getFavoriteById(itemId) != null)
+        }
     }
 
     @AssistedFactory
@@ -181,15 +170,4 @@ class CatalogViewModel @AssistedInject constructor(
         fun create(): CatalogViewModel
 
     }
-}
-
-operator fun <T> MutableLiveData<List<T>>.plusAssign(item: T) {
-    val value = this.value ?: emptyList()
-    this.postValue(value + listOf(item))
-}
-
-private fun List<String>.remove(string: String): List<String> {
-    val result = this.toMutableList()
-    result.remove(string)
-    return result
 }

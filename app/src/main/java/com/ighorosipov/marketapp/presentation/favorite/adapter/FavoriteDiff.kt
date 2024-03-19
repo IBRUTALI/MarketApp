@@ -1,9 +1,9 @@
-package com.ighorosipov.marketapp.presentation.catalog.adapter
+package com.ighorosipov.marketapp.presentation.favorite.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.ighorosipov.marketapp.domain.model.Item
 
-class ItemDiff(
+class FavoriteDiff(
     private val oldList: List<Item>,
     private val newList: List<Item>,
 ) : DiffUtil.Callback() {
@@ -59,10 +59,6 @@ class ItemDiff(
             }
 
             oldList[oldItemPosition].title != newList[newItemPosition].title -> {
-                false
-            }
-
-            oldList[oldItemPosition].isFavorite != newList[newItemPosition].isFavorite -> {
                 false
             }
 

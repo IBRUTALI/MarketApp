@@ -73,9 +73,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             }
 
             override fun onHeartClick(position: Int, item: Item) {
-                viewModel.toggleFavorite(item.id) {
-                    itemAdapter.checkFavorites(position)
-                }
+                viewModel.toggleFavorite(item)
             }
         })
 
@@ -125,14 +123,14 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             }
         }
 
-        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
-            val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)
-            itemAdapter.setFavorites(favorites)
-            if(itemPosition?.value != null) {
-                itemAdapter.checkFavorites(position = itemPosition.value!!)
-                findNavController().clearBackStack(R.id.catalog)
-            }
-        }
+//        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
+//            val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)
+//            itemAdapter.setFavorites(favorites)
+//            if(itemPosition?.value != null) {
+//                itemAdapter.checkFavorites(position = itemPosition.value!!)
+//                findNavController().clearBackStack(R.id.catalog)
+//            }
+//        }
 
         viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
             binding.sortList.setText(requireContext().getString(direction.resId), false)
@@ -144,11 +142,11 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             tagAdapter.updateTag(tag)
         }
 
-        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
-            if (itemId != null) {
-                viewModel.updateFavorites(itemId as String, isFavorite)
-            }
-        }
+//        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+//            if (itemId != null) {
+//                viewModel.updateFavorites(itemId as String, isFavorite)
+//            }
+//        }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
             BUNDLE_ITEM_ID

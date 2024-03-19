@@ -18,5 +18,14 @@
         android:id="@+id/favoriteFragment"
         android:name="com.ighorosipov.marketapp.presentation.favorite.FavoriteFragment"
         android:label="@string/favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_productFragment2"
+            app:destination="@id/productFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment2"
+        android:name="com.ighorosipov.marketapp.presentation.product.ProductFragment"
+        android:label=""
+        tools:layout="@layout/fragment_product" />
 </navigation>

@@ -3,36 +3,28 @@ package com.ighorosipov.marketapp.data.mapper
 import com.ighorosipov.marketapp.data.model.Feedback
 import com.ighorosipov.marketapp.data.model.Info
 import com.ighorosipov.marketapp.data.model.Item
-import com.ighorosipov.marketapp.data.model.Items
 import com.ighorosipov.marketapp.data.model.Price
+import com.ighorosipov.marketapp.data.model.db.ItemEntity
 
-class ProductMapper {
+class NetworkItemMapper {
+//    fun mapDataToEntity(items: Items): List<ItemEntity> =
+//        with(items.items) {
+//             map { item ->
+//                    mapItemToData(item)
+//                }
+//        }
+//
+//    fun mapDataToDomain(items: Items): com.ighorosipov.marketapp.domain.model.Items =
+//        with(items.items) {
+//            com.ighorosipov.marketapp.domain.model.Items(
+//                items = map { item ->
+//                    mapDataItemToDomainItem(item)
+//                }
+//            )
+//        }
 
-    fun mapItemsToData(items: com.ighorosipov.marketapp.domain.model.Items): Items =
-        with(items.items) {
-            com.ighorosipov.marketapp.data.model.Items(
-                items = map { item ->
-                    mapItemToData(item)
-                }
-            )
-        }
-
-    fun mapItemsToDomain(items: Items): com.ighorosipov.marketapp.domain.model.Items =
-        with(items.items) {
-            com.ighorosipov.marketapp.domain.model.Items(
-                items = map { item ->
-                    mapItemToDomain(item)
-                }
-            )
-        }
-
-    fun mapListOfItemToDomain(items: List<Item>): List<com.ighorosipov.marketapp.domain.model.Item> =
-        items.map { item ->
-            mapItemToDomain(item)
-        }
-
-    fun mapItemToData(item: com.ighorosipov.marketapp.domain.model.Item): Item {
-        return Item(
+   fun mapItemToData(item: Item): ItemEntity {
+        return ItemEntity(
             available = item.available,
             description = item.description,
             feedback = mapFeedbackToData(item.feedback),
@@ -42,26 +34,28 @@ class ProductMapper {
             price = mapPriceToData(item.price),
             subtitle = item.subtitle,
             tags = item.tags,
-            title = item.title
+            title = item.title,
+            isFavorite = false
         )
     }
 
-    fun mapItemToDomain(item: Item): com.ighorosipov.marketapp.domain.model.Item {
-        return com.ighorosipov.marketapp.domain.model.Item(
-            available = item.available,
-            description = item.description,
-            feedback = mapFeedbackToDomain(item.feedback),
-            id = item.id,
-            info = item.info.map { mapInfoToDomain(it) },
-            ingredients = item.ingredients,
-            price = mapPriceToDomain(item.price),
-            subtitle = item.subtitle,
-            tags = item.tags,
-            title = item.title
-        )
-    }
+//    private fun mapDataItemToDomainItem(item: Item): com.ighorosipov.marketapp.domain.model.Item {
+//        return com.ighorosipov.marketapp.domain.model.Item(
+//            available = item.available,
+//            description = item.description,
+//            feedback = mapFeedbackToDomain(item.feedback),
+//            id = item.id,
+//            info = item.info.map { mapInfoToDomain(it) },
+//            ingredients = item.ingredients,
+//            price = mapPriceToDomain(item.price),
+//            subtitle = item.subtitle,
+//            tags = item.tags,
+//            title = item.title,
+//            isFavorite = false
+//        )
+//    }
 
-    private fun mapFeedbackToData(feedback: com.ighorosipov.marketapp.domain.model.Feedback): Feedback {
+    private fun mapFeedbackToData(feedback: Feedback): Feedback {
         return Feedback(
             count = feedback.count,
             rating = feedback.rating
@@ -75,7 +69,7 @@ class ProductMapper {
         )
     }
 
-    private fun mapInfoToData(info: com.ighorosipov.marketapp.domain.model.Info): Info {
+    private fun mapInfoToData(info: Info): Info {
         return Info(
             title = info.title,
             value = info.value
@@ -89,7 +83,7 @@ class ProductMapper {
         )
     }
 
-    private fun mapPriceToData(price: com.ighorosipov.marketapp.domain.model.Price): Price {
+    private fun mapPriceToData(price: Price): Price {
         return Price(
             discount = price.discount,
             price = price.price,
@@ -106,5 +100,4 @@ class ProductMapper {
             unit = price.unit
         )
     }
-
 }

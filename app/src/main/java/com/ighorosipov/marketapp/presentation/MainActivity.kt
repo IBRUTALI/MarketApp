@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 getSignInDestination()
             }
         )
+        navController.graph = graph
     }
 
     private fun onCustomToolbarBackPress() {

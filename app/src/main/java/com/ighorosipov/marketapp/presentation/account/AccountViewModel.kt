@@ -22,8 +22,12 @@ class AccountViewModel @AssistedInject constructor(
     private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
 
+    private val _favoriteCount = MutableLiveData<Int>()
+    val favoriteCount: LiveData<Int> = _favoriteCount
+
     init {
         getUser()
+        getFavoriteCount()
     }
 
     private fun getUser() {
@@ -40,6 +44,12 @@ class AccountViewModel @AssistedInject constructor(
             } else {
                 return@launch
             }
+        }
+    }
+
+    private fun getFavoriteCount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _favoriteCount.postValue(repository.getFavoritesCount())
         }
     }
 

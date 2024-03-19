@@ -75,5 +75,13 @@
     <string name="markets">Магазины</string>
     <string name="feedback">Обратная связь</string>
     <!--  Favorite  -->
+    <plurals name="favorite_plurals">
+        <item quantity="zero">товар</item>
+        <item quantity="one">товар</item>
+        <item quantity="two">товара</item>
+        <item quantity="few">товара</item>
+        <item quantity="many">товаров</item>
+        <item quantity="other">товаров</item>
+    </plurals>
 
 </resources>

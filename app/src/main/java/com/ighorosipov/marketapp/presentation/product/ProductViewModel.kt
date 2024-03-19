@@ -61,9 +61,7 @@ init {
                 )
                 if (repository.getFavoriteById(itemId) == null) {
                     _isFavorite.postValue(true)
-                    repository.insertUserFavorite(
-                        favorite
-                    )
+
                 } else {
                     withContext(Dispatchers.Main) {
                         _isFavorite.postValue(false)

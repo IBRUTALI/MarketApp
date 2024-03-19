@@ -11,6 +11,8 @@ interface MarketRepository {
 
     suspend fun getItemById(itemId: String): Item
 
+    suspend fun updateItem(item: Item)
+
     suspend fun insertItem(item: Item)
 
     suspend fun insertUser(user: User)
@@ -21,12 +23,16 @@ interface MarketRepository {
 
     suspend fun isUserSignIn(): Boolean
 
-    suspend fun insertUserFavorite(favorite: Favorite)
+    //suspend fun insertUserFavorite(favorite: Favorite)
+
+    suspend fun getFavoritesCount(): Int
 
     suspend fun getFavoriteById(itemId: String): Favorite?
 
     suspend fun deleteUserFavorite(itemId: String)
 
-    suspend fun getUserFavorites(): List<String>
+    suspend fun getUserFavorites(): List<Item>
+
+    suspend fun getUserFavoritesId(): List<String>
 
 }

@@ -1,5 +1,6 @@
 package com.ighorosipov.marketapp.presentation.account
 
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.FragmentAccountBinding
@@ -22,7 +23,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>(
     override fun initViews() {
         binding.buttonUser.setOnClickListener {}
         binding.buttonFavorites.setOnClickListener {
-
+            findNavController().navigate(R.id.action_accountFragment_to_favoriteFragment)
         }
         binding.buttonMarkets.setOnClickListener {}
         binding.buttonFeedback.setOnClickListener {}
@@ -49,6 +50,14 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>(
                 inclusive = true
             }
         })
+        }
+
+        viewModel.favoriteCount.observe(viewLifecycleOwner) { count ->
+            if (count != 0) {
+                binding.buttonFavorites.setSubtitle(count.toString() + " " + requireContext().resources.getQuantityString(R.plurals.favorite_plurals, count))
+            } else {
+                binding.buttonFavorites.setSubtitle("")
+            }
         }
 
     }
