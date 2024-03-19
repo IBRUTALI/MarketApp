@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeToObservers(navController: NavController) {
-        viewModel.isSignIn.observe(this) { result ->
+        viewModel.isSignIn.observeForever { result ->
             prepareRootNavController(result, navController)
             onNavControllerActivated(navController)
         }

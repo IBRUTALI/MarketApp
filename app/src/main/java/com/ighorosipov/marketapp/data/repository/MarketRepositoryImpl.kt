@@ -69,10 +69,6 @@ class MarketRepositoryImpl @Inject constructor(
         return dao.getUser() != null
     }
 
-//    override suspend fun insertUserFavorite(favorite: Favorite) {
-//        dao.insertUserFavorite(FavoriteMapper().mapFavoriteToFavoriteEntity(favorite))
-//    }
-
     override suspend fun getFavoritesCount(): Int {
         return dao.getUserFavoritesCount()
     }

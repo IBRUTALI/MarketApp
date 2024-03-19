@@ -15,7 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class CatalogViewModel @AssistedInject constructor(
-    private val marketRepository: MarketRepository,
+    private val repository: MarketRepository,
 ) : BaseViewModel() {
 
     private val _items = MutableLiveData<Result<List<Item>>>()
@@ -42,7 +42,7 @@ class CatalogViewModel @AssistedInject constructor(
     private fun getItems() {
         viewModelScope.launch(Dispatchers.IO) {
             _items.postValue(Result.Loading())
-            val items = marketRepository.getItems()
+            val items = repository.getItems()
             _items.postValue(items)
             initialItems = items.data ?: emptyList()
         }
@@ -50,7 +50,7 @@ class CatalogViewModel @AssistedInject constructor(
 
     fun toggleFavorite(item: Item) {
         viewModelScope.launch(Dispatchers.IO) {
-            marketRepository.updateItem(item.copy(isFavorite = !item.isFavorite))
+            repository.updateItem(item.copy(isFavorite = !item.isFavorite))
             _items.postValue(
                 Result.Success(items.value?.data?.map {
                     if (it == item) {
@@ -66,22 +66,23 @@ class CatalogViewModel @AssistedInject constructor(
         }
     }
 
-//    private fun getFavorites() {
-//        viewModelScope.launch {
-//            _favorites.postValue(marketRepository.getUserFavoritesId())
-//        }
-//    }
-//
-//    fun updateFavorites(itemId: String, isFavorite: Boolean) {
-//        val isContainsInList = favorites.value?.contains(itemId) == true
-//        if (isFavorite) {
-//            if (!isContainsInList)
-//                _favorites.plusAssign(itemId)
-//        } else {
-//            if (isContainsInList)
-//                _favorites.postValue(favorites.value?.remove(itemId))
-//        }
-//    }
+    fun toggleFavoriteAfterProductBackStack(itemId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val item = repository.getItemById(itemId)
+            _items.postValue(
+                Result.Success(items.value?.data?.map {
+                    if (it.id == itemId) {
+                        it.copy(isFavorite = item.isFavorite)
+                    } else it
+                } ?: emptyList())
+            )
+            initialItems = initialItems.map {
+                if (it.id == itemId) {
+                    it.copy(isFavorite = item.isFavorite)
+                } else it
+            }
+        }
+    }
 
     fun changeSortDirection(value: Sort) {
         _sortDirection.value = value
@@ -160,7 +161,7 @@ class CatalogViewModel @AssistedInject constructor(
 
     fun isFavoriteById(itemId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isFavorite.postValue(marketRepository.getFavoriteById(itemId) != null)
+            _isFavorite.postValue(repository.getFavoriteById(itemId) != null)
         }
     }
 

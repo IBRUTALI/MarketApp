@@ -16,7 +16,6 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.ighorosipov.marketapp.R
 import com.ighorosipov.marketapp.databinding.FragmentProductBinding
 import com.ighorosipov.marketapp.presentation.catalog.CatalogFragment.Companion.BUNDLE_ITEM_ID
-import com.ighorosipov.marketapp.presentation.catalog.CatalogFragment.Companion.BUNDLE_ITEM_POSITION
 import com.ighorosipov.marketapp.presentation.catalog.adapter.ItemAdapter.Companion.mapOfImages
 import com.ighorosipov.marketapp.presentation.product.adapter.InfoAdapter
 import com.ighorosipov.marketapp.utils.base.BaseFragment
@@ -80,9 +79,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
 
     private fun getBundle(): String? {
         val itemId = arguments?.getString(BUNDLE_ITEM_ID)
-        val itemPosition= arguments?.getInt(BUNDLE_ITEM_POSITION)
         findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_ID, itemId)
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_POSITION, itemPosition)
         return itemId
     }
 
@@ -105,6 +102,11 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
     override fun subscribeToObservers() {
         viewModel.item.observe(viewLifecycleOwner) { item ->
             binding.apply {
+                if(item.isFavorite) {
+                    binding.heart.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    binding.heart.setImageResource(R.drawable.ic_heart_empty)
+                }
                 val imageList = mutableListOf<SlideModel>()
                 mapOfImages[item.id]?.forEach {
                     imageList.add(SlideModel(it))
@@ -145,13 +147,6 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
                 ingredients.text = item.ingredients
                 buttonAdd.setTitle(item.price.priceWithDiscount + " " + item.price.unit)
                 buttonAdd.setTitleStrike(item.price.price + " " + item.price.unit)
-            }
-        }
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
-            if(it) {
-                binding.heart.setImageResource(R.drawable.ic_heart_fill)
-            } else {
-                binding.heart.setImageResource(R.drawable.ic_heart_empty)
             }
         }
         viewModel.descriptionState.observe(viewLifecycleOwner) { state ->

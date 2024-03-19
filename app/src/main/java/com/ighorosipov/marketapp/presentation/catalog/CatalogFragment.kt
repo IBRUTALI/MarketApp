@@ -66,8 +66,7 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
             override fun onItemClick(position: Int, item: Item) {
                 val bundle = bundleOf(
-                    BUNDLE_ITEM_ID to item.id,
-                    BUNDLE_ITEM_POSITION to position
+                    BUNDLE_ITEM_ID to item.id
                 )
                 findNavController().navigate(R.id.action_catalogFragment_to_productFragment, bundle)
             }
@@ -123,15 +122,6 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             }
         }
 
-//        viewModel.favorites.observe(viewLifecycleOwner) { favorites ->
-//            val itemPosition = findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Int>(BUNDLE_ITEM_POSITION)
-//            itemAdapter.setFavorites(favorites)
-//            if(itemPosition?.value != null) {
-//                itemAdapter.checkFavorites(position = itemPosition.value!!)
-//                findNavController().clearBackStack(R.id.catalog)
-//            }
-//        }
-
         viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
             binding.sortList.setText(requireContext().getString(direction.resId), false)
             viewModel.sort(direction)
@@ -142,18 +132,12 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
             tagAdapter.updateTag(tag)
         }
 
-//        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
-//            if (itemId != null) {
-//                viewModel.updateFavorites(itemId as String, isFavorite)
-//            }
-//        }
-
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
             BUNDLE_ITEM_ID
         )
             ?.observe(viewLifecycleOwner) { itemId ->
                 this.itemId = itemId
-                viewModel.isFavoriteById(itemId)
+                viewModel.toggleFavoriteAfterProductBackStack(itemId)
             }
 
     }
@@ -165,6 +149,5 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
 
     companion object {
         const val BUNDLE_ITEM_ID = "BUNDLE_ITEM_ID"
-        const val BUNDLE_ITEM_POSITION = "BUNDLE_ITEM_POSITION"
     }
 }

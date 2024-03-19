@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ighorosipov.marketapp.domain.repository.MarketRepository
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivityViewModel @AssistedInject constructor(
@@ -21,8 +22,8 @@ class MainActivityViewModel @AssistedInject constructor(
     }
 
     private fun isSignIn() {
-        viewModelScope.launch {
-            _isSignIn.value = marketRepository.isUserSignIn()
+        viewModelScope.launch(Dispatchers.IO) {
+            _isSignIn.postValue(marketRepository.isUserSignIn())
         }
     }
 

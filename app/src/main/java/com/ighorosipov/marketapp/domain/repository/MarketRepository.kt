@@ -23,8 +23,6 @@ interface MarketRepository {
 
     suspend fun isUserSignIn(): Boolean
 
-    //suspend fun insertUserFavorite(favorite: Favorite)
-
     suspend fun getFavoritesCount(): Int
 
     suspend fun getFavoriteById(itemId: String): Favorite?
