@@ -6,12 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.ighorosipov.marketapp.data.mapper.ItemConverter
-import com.ighorosipov.marketapp.data.model.db.FavoriteEntity
 import com.ighorosipov.marketapp.data.model.db.ItemEntity
 import com.ighorosipov.marketapp.data.model.db.UserEntity
 
 @Database(
-    entities = [ItemEntity::class, UserEntity::class, FavoriteEntity::class],
+    entities = [ItemEntity::class, UserEntity::class],
     version = 1,
     exportSchema = false
 )

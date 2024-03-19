@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.ighorosipov.marketapp.data.model.db.FavoriteEntity
 import com.ighorosipov.marketapp.data.model.db.ItemEntity
 import com.ighorosipov.marketapp.data.model.db.UserEntity
 
@@ -34,22 +33,13 @@ interface MarketDao {
     @Query("SELECT * FROM user LIMIT 1")
     suspend fun getUser(): UserEntity?
 
-    @Query("SELECT * FROM favorite WHERE item =:itemId LIMIT 1")
-    suspend fun findFavoriteById(itemId: String): FavoriteEntity?
-
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertUserFavorite(favoriteEntity: FavoriteEntity)
-
-    @Query("DELETE FROM favorite WHERE item =:itemId")
-    suspend fun deleteUserFavorite(itemId: String)
-
-    @Query("SELECT * FROM items WHERE isFavorite = 'true'")
+    @Query("SELECT * FROM items WHERE isFavorite = 1")
     suspend fun getUserFavorites(): List<ItemEntity>
 
-    @Query("SELECT item FROM favorite")
-    suspend fun getUserFavoritesId(): List<String>
+    @Query("SELECT id FROM items WHERE isFavorite = 1")
+    suspend fun getUserFavoritesIds(): List<String>
 
-    @Query("SELECT COUNT(id) FROM favorite")
+    @Query("SELECT COUNT(id) FROM items WHERE isFavorite = 1")
     suspend fun getUserFavoritesCount(): Int
 
 }

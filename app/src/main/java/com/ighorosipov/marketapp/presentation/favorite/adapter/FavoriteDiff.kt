@@ -62,6 +62,10 @@ class FavoriteDiff(
                 false
             }
 
+            oldList[oldItemPosition].isFavorite != newList[newItemPosition].isFavorite -> {
+                false
+            }
+
             else -> true
         }
     }

@@ -41,8 +41,8 @@ operator fun <T> MutableLiveData<List<T>>.plusAssign(item: T) {
     this.postValue(value + listOf(item))
 }
 
-fun List<String>.remove(string: String): List<String> {
+fun <T> List<T>.remove(item: T): List<T> {
     val result = this.toMutableList()
-    result.remove(string)
+    result.remove(item)
     return result
 }

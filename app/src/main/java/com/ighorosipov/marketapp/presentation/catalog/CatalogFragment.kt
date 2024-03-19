@@ -1,7 +1,9 @@
 package com.ighorosipov.marketapp.presentation.catalog
 
+import android.view.View
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSmoothScroller
@@ -25,9 +27,11 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
     private lateinit var sortAdapter: ArrayAdapter<String>
     private lateinit var smoothScroller: SmoothScroller
     private var itemId: String? = null
+
     override val viewModel: CatalogViewModel by lazyViewModel {
         requireContext().appComponent().catalogViewModel().create()
     }
+
     private val sortItems = arrayOf(
         Sort.Popularity(),
         Sort.PriceDescending(),
@@ -104,20 +108,17 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         viewModel.items.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
-
+                    binding.loading.visibility = View.VISIBLE
                 }
 
                 is Result.Success -> {
+                    binding.loading.visibility = View.GONE
                     itemAdapter.setList(result.data ?: emptyList())
-                    binding.items.post {
-                        smoothScroller.targetPosition = itemAdapter.getFirstPosition()
-                        binding.items.layoutManager?.startSmoothScroll(smoothScroller)
-
-                    }
                 }
 
                 is Result.Error -> {
-
+                    binding.loading.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -125,11 +126,13 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
         viewModel.sortDirection.observe(viewLifecycleOwner) { direction ->
             binding.sortList.setText(requireContext().getString(direction.resId), false)
             viewModel.sort(direction)
+            snapToTop()
         }
 
         viewModel.tag.observe(viewLifecycleOwner) { tag ->
             viewModel.filterByTag(tag)
             tagAdapter.updateTag(tag)
+            snapToTop()
         }
 
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
@@ -140,6 +143,13 @@ class CatalogFragment : BaseFragment<FragmentCatalogBinding, CatalogViewModel>(
                 viewModel.toggleFavoriteAfterProductBackStack(itemId)
             }
 
+    }
+
+    private fun snapToTop() {
+        binding.items.post {
+            smoothScroller.targetPosition = itemAdapter.getFirstPosition()
+            binding.items.layoutManager?.startSmoothScroll(smoothScroller)
+        }
     }
 
     override fun onPause() {

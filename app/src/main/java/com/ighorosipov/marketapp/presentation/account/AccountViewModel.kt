@@ -47,7 +47,7 @@ class AccountViewModel @AssistedInject constructor(
         }
     }
 
-    private fun getFavoriteCount() {
+    fun getFavoriteCount() {
         viewModelScope.launch(Dispatchers.IO) {
             _favoriteCount.postValue(repository.getFavoritesCount())
         }

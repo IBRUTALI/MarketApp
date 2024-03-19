@@ -62,5 +62,10 @@ class AccountFragment : BaseFragment<FragmentAccountBinding, AccountViewModel>(
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavoriteCount()
+    }
+
 
 }

@@ -29,20 +29,17 @@ class CatalogViewModel @AssistedInject constructor(
     private val _sortDirection = MutableLiveData<Sort>()
     val sortDirection: LiveData<Sort> = _sortDirection
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
-
     private var job: Job? = null
 
     init {
-        getItems()
+        getItemsCached()
         _sortDirection.value = Sort.Default()
     }
 
-    private fun getItems() {
+    private fun getItemsCached() {
         viewModelScope.launch(Dispatchers.IO) {
             _items.postValue(Result.Loading())
-            val items = repository.getItems()
+            val items = repository.getItemsCached()
             _items.postValue(items)
             initialItems = items.data ?: emptyList()
         }
@@ -89,7 +86,7 @@ class CatalogViewModel @AssistedInject constructor(
     }
 
     fun sort(direction: Sort, filteredItemsByTag: List<Item>? = null) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.IO) {
             val items = filteredItemsByTag ?: items.value?.data
             when (direction) {
                 is Sort.Popularity -> {
@@ -156,12 +153,6 @@ class CatalogViewModel @AssistedInject constructor(
                 }
 
             }
-        }
-    }
-
-    fun isFavoriteById(itemId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _isFavorite.postValue(repository.getFavoriteById(itemId) != null)
         }
     }
 
