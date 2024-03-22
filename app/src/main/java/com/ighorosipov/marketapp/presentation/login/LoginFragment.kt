@@ -1,6 +1,9 @@
 package com.ighorosipov.marketapp.presentation.login
 
+import android.graphics.Rect
+import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.fragment.findNavController
 import com.ighorosipov.marketapp.R
@@ -21,11 +24,31 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
         requireContext().appComponent().loginViewModel().create()
     }
 
+    private val globalLayoutListener = OnGlobalLayoutListener {
+        // on below line we are creating a variable for rect
+        val rect = Rect()
+        // on below line getting frame for our relative layout.
+        binding.loginLayout.getWindowVisibleDisplayFrame(rect)
+        // on below line getting screen height for relative layout.
+        val screenHeight = binding.loginLayout.rootView.height
+        // on below line getting keypad height.
+        val keypadHeight = screenHeight - rect.bottom
+        // on below line we are checking if keypad height is greater than screen height.
+        if (keypadHeight > screenHeight * 0.15) {
+            // displaying toast message as keyboard showing.
+            binding.conditionsGroup.visibility = View.GONE
+        } else {
+            // displaying toast message as keyboard closed.
+            binding.conditionsGroup.visibility = View.VISIBLE
+        }
+    }
+
     override fun inject() {
         requireContext().appComponent().inject(this)
     }
 
     override fun initViews() {
+        addKeyboardListener()
         validateEditFields()
         clearEditFieldsVisibility()
         loginButton()
@@ -34,8 +57,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
     private fun loginButton() {
         binding.loginButton.setOnClickListener {
             viewModel.insertUser()
+            binding.loginLayout.viewTreeObserver.removeOnGlobalLayoutListener(globalLayoutListener)
             findNavController().navigate(R.id.action_loginFragment_to_tabsFragment)
         }
+    }
+
+    private fun addKeyboardListener() {
+        binding.loginLayout.viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
     }
 
     private fun validateEditFields() {
@@ -101,11 +129,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                 list.forEach {
                     when (it) {
                         UserInputError.InvalidFirstname -> {
-                            firstnameInputLayout.error = "Некорректный символ"
+                            firstnameInputLayout.error = getString(R.string.invalid_char)
                         }
 
                         UserInputError.InvalidLastname -> {
-                            lastnameInputLayout.error = "Некорректный символ"
+                            lastnameInputLayout.error = getString(R.string.invalid_char)
                         }
 
                         UserInputError.InvalidNumber -> {
@@ -125,4 +153,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.loginLayout.viewTreeObserver.removeOnGlobalLayoutListener(globalLayoutListener)
+    }
+
 }
+

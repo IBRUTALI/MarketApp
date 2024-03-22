@@ -398,7 +398,7 @@ class MarketButton @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val desiredWidth = 300 // Предполагаемая ширина View
-        val desiredHeight = 140 // Предполагаемая высота View
+        val desiredHeight = 110 // Предполагаемая высота View
 
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)

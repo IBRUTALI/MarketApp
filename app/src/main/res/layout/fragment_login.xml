@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/base_padding_top_medium"
@@ -35,9 +37,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/lastname"
         app:boxStrokeWidth="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/center_space"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/center_space"
-        app:layout_constraintStart_toStartOf="@+id/center_space">
+        app:layout_constraintStart_toStartOf="@+id/center_space"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -66,13 +69,13 @@
         app:boxStrokeWidth="0dp"
         app:layout_constraintEnd_toEndOf="@+id/center_space"
         app:layout_constraintStart_toStartOf="@+id/center_space"
-        app:layout_constraintTop_toBottomOf="@+id/center_space">
+        app:layout_constraintTop_toBottomOf="@+id/lastnameInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="16"
             android:inputType="phone"
+            android:maxLength="16"
             android:textAppearance="@style/BaseText.PlaceholderText"
             android:textColor="@color/text_black" />
 
@@ -84,11 +87,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/base_padding_small"
-        app:title="@string/login"
-        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toTopOf="@+id/text_conditions"
         app:layout_constraintEnd_toEndOf="@+id/numberInputLayout"
         app:layout_constraintStart_toStartOf="@+id/numberInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/numberInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/numberInputLayout"
+        app:title="@string/login"
+        app:layout_constraintVertical_bias="0"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/conditions_group"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:constraint_referenced_ids="text_before_conditions, text_conditions"/>
 
     <TextView
         android:id="@+id/text_before_conditions"
@@ -96,12 +107,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
         android:text="@string/text_before_conditions"
         app:layout_constraintBottom_toTopOf="@+id/text_conditions"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="@+id/loginButton"
+        app:layout_constraintStart_toStartOf="@+id/loginButton" />
 
     <TextView
         android:id="@+id/text_conditions"
@@ -110,6 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/base_padding_small"
         android:gravity="center"
+        android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
         android:text="@string/conditions_of_the_loyalty"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text_before_conditions"

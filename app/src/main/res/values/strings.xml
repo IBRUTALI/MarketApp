@@ -74,6 +74,7 @@
     <string name="personal_account">Личный кабинет</string>
     <string name="markets">Магазины</string>
     <string name="feedback">Обратная связь</string>
+    <string name="invalid_char">Некорректный символ</string>
     <!--  Favorite  -->
     <plurals name="favorite_plurals">
         <item quantity="zero">товар</item>

@@ -15,7 +15,6 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.ItemViewHolder>() {
     private var onClickListener: OnClickListener? = null
     private var items = emptyList<Item>()
 
-
     class ItemViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

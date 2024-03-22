@@ -26,9 +26,9 @@
             android:drawableStart="@drawable/ic_sort"
             android:drawablePadding="4dp"
             android:inputType="none"
-            android:textAlignment="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
+            android:textAlignment="center"
             android:textColor="@color/text_dark_grey"
             android:textIsSelectable="false"
             tools:text="@string/by_popularity" />
@@ -104,11 +104,11 @@
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:indeterminateTint="@color/elem_pink"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tags" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

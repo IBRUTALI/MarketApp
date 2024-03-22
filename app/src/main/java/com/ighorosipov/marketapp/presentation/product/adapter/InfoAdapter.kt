@@ -10,7 +10,6 @@ import com.ighorosipov.marketapp.domain.model.Info
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.InfoViewHolder>() {
     private var items = listOf<Info>()
 
-
     class InfoViewHolder(val binding: ItemInfoBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfoViewHolder {

@@ -15,7 +15,6 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     private var items = emptyList<Item>()
     private var firstPosition = 0
 
-
     class ItemViewHolder(val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -96,10 +95,6 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
         val diffResult = DiffUtil.calculateDiff(diffUtil)
         diffResult.dispatchUpdatesTo(this)
         items = newList
-    }
-
-    fun checkFavorites(position: Int) {
-        notifyItemChanged(position, null)
     }
 
     fun getFirstPosition(): Int {

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.product.ProductFragment"
-    android:layout_marginBottom="@dimen/base_padding_top_medium">
+    tools:context=".presentation.product.ProductFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -98,9 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/base_padding_small"
             android:numStars="5"
+            android:clickable="false"
             android:rating="4.3"
             android:stepSize="0.5"
-            android:paddingTop="4dp"
             app:layout_constraintStart_toStartOf="@+id/space"
             app:layout_constraintTop_toBottomOf="@+id/space" />
 
@@ -191,7 +190,6 @@
             android:layout_marginTop="@dimen/base_padding_top_medium"
             app:title="@string/title"
             app:rightIcon="@drawable/ic_arrow_right"
-            app:leftIconSize="32dp"
             app:rightIconSize="32dp"
             app:layout_constraintEnd_toEndOf="@+id/description_hc"
             app:layout_constraintStart_toStartOf="@+id/description_hc"
@@ -317,13 +315,14 @@
             style="@style/TrueMaterialButton.Add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/base_padding_top_medium"
-            app:title="@string/price"
-            app:subtitle="@string/add_to_basket"
-            app:titleStrike="@string/price_with_discount"
+            android:layout_marginVertical="@dimen/base_padding_top_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ingredients_layout"
             app:layout_constraintStart_toStartOf="@+id/ingredients_layout"
-            app:layout_constraintTop_toBottomOf="@+id/ingredients_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/ingredients_layout"
+            app:subtitle="@string/add_to_basket"
+            app:title="@string/price"
+            app:titleStrike="@string/price_with_discount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

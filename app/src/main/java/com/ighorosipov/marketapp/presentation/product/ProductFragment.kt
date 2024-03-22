@@ -27,6 +27,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
     FragmentProductBinding::inflate
 ) {
     private val infoAdapter by lazy { InfoAdapter() }
+    private var itemId: String? = null
     override val viewModel: ProductViewModel by lazyViewModel {
         requireContext().appComponent().productViewModel().create(getBundle())
     }
@@ -78,7 +79,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
     }
 
     private fun getBundle(): String? {
-        val itemId = arguments?.getString(BUNDLE_ITEM_ID)
+        itemId = arguments?.getString(BUNDLE_ITEM_ID)
         findNavController().previousBackStackEntry?.savedStateHandle?.set(BUNDLE_ITEM_ID, itemId)
         return itemId
     }
@@ -187,5 +188,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
             }
         }
     }
+
+
 
 }
