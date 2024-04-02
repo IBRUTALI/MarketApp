@@ -120,7 +120,7 @@ class ProductFragment : BaseFragment<FragmentProductBinding, ProductViewModel>(
                     available.text = this
                 }
 
-                if (item.feedback == null) {
+                if (item.feedback.count == 0) {
                     feedbackGroup.visibility = View.GONE
                 } else {
                     feedbackGroup.visibility = View.VISIBLE
